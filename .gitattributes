@@ -11,3 +11,6 @@ output/distinctiveness/ecoregions_climate_resample_wintering.all.test4.inclNA.wo
 input/MigConn/WIFL/wilfly_abundance_seasonal_nonbreeding_mean_2023.tif filter=lfs diff=lfs merge=lfs -text
 input/MigConn/WIFL/WIFL_Genoscape_Spat_Raster_K4.tif filter=lfs diff=lfs merge=lfs -text
 *.RDS filter=lfs diff=lfs merge=lfs -text
+output/MigConn/SWTH/SWTH.psi_estimates.MC.RDS filter=lfs diff=lfs merge=lfs -text
+output/MigConn/WIFL/WIFL.psi_estimates.MC.loco-pipe.exclSD0.exclNAndes.updatedMigConn.RDS filter=lfs diff=lfs merge=lfs -text
+output/MigConn/AMRE/AMRE.psi_estimates_redo.MC.ind144_rmLC.loco-pipe.ref125b.updatedMigConn.RDS filter=lfs diff=lfs merge=lfs -text
