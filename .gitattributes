@@ -6,3 +6,5 @@ input/MigConn/SWTH/SWTH.3x.genoscape_brick.WGS84.tif filter=lfs diff=lfs merge=l
 input/distinctiveness/resources/ebird_st/2023/amered/seasonal/amered_abundance_seasonal_mean_9km_2023.tif filter=lfs diff=lfs merge=lfs -text
 input/distinctiveness/resources/ebird_st/2023/swathr/seasonal/swathr_abundance_seasonal_mean_9km_2023.tif filter=lfs diff=lfs merge=lfs -text
 input/distinctiveness/resources/ebird_st/2023/wilfly/seasonal/wilfly_abundance_seasonal_mean_9km_2023.tif filter=lfs diff=lfs merge=lfs -text
+*.txt filter=lfs diff=lfs merge=lfs -text
+output/distinctiveness/ecoregions_climate_resample_wintering.all.test4.inclNA.worldclim.oldcomp.txt filter=lfs diff=lfs merge=lfs -text
