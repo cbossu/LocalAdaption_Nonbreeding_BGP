@@ -8,3 +8,6 @@ input/distinctiveness/resources/ebird_st/2023/swathr/seasonal/swathr_abundance_s
 input/distinctiveness/resources/ebird_st/2023/wilfly/seasonal/wilfly_abundance_seasonal_mean_9km_2023.tif filter=lfs diff=lfs merge=lfs -text
 *.txt filter=lfs diff=lfs merge=lfs -text
 output/distinctiveness/ecoregions_climate_resample_wintering.all.test4.inclNA.worldclim.oldcomp.txt filter=lfs diff=lfs merge=lfs -text
+input/MigConn/WIFL/wilfly_abundance_seasonal_nonbreeding_mean_2023.tif filter=lfs diff=lfs merge=lfs -text
+input/MigConn/WIFL/WIFL_Genoscape_Spat_Raster_K4.tif filter=lfs diff=lfs merge=lfs -text
+*.RDS filter=lfs diff=lfs merge=lfs -text
