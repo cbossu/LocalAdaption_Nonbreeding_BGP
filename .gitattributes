@@ -3,3 +3,6 @@ input/MigConn/AMRE/amered_abundance_seasonal_nonbreeding_mean_2023.tif filter=lf
 input/MigConn/AMRE/AMRE.genoscape_brick.tif filter=lfs diff=lfs merge=lfs -text
 input/MigConn/SWTH/swathr_abundance_seasonal_nonbreeding_mean_2023.tif filter=lfs diff=lfs merge=lfs -text
 input/MigConn/SWTH/SWTH.3x.genoscape_brick.WGS84.tif filter=lfs diff=lfs merge=lfs -text
+input/distinctiveness/resources/ebird_st/2023/amered/seasonal/amered_abundance_seasonal_mean_9km_2023.tif filter=lfs diff=lfs merge=lfs -text
+input/distinctiveness/resources/ebird_st/2023/swathr/seasonal/swathr_abundance_seasonal_mean_9km_2023.tif filter=lfs diff=lfs merge=lfs -text
+input/distinctiveness/resources/ebird_st/2023/wilfly/seasonal/wilfly_abundance_seasonal_mean_9km_2023.tif filter=lfs diff=lfs merge=lfs -text
