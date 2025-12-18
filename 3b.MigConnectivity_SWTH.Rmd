@@ -153,7 +153,7 @@ SWTHmc
 This is the spread on the wintering ground
 
 ```{r}
-swth.psi<-readRDS("output/MigConn/SWTH/SWTH.psi_estimates.MC.loco-pipe.RDS")
+swth.psi<-readRDS("output/MigConn/SWTH/SWTH.psi_estimates.MC.RDS")
 
 calcNMC(swth.psi$psi$mean)
 
