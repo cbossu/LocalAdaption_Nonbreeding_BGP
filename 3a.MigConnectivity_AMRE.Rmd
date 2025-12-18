@@ -16,10 +16,9 @@ knitr::opts_chunk$set(echo = TRUE)
 install.packages("MigConnectivity")
 # install.packages("remotes")
 remotes::install_github("mgdesaix/mignette")
-install.packages("sf")
-
 ```
 ## The location of the proj.db changed on new computer so I needed to specify where it was- this might not be necessary for most people (MacbookPro M4)
+
 ```{r}
 Sys.setenv("PROJ_LIB"="/Library/Frameworks/R.framework/Resources/library/sf/proj")
 library(MigConnectivity) 
@@ -159,6 +158,33 @@ dev.off()
 
 ```
 
+
+## Uses the transition probabilities to estimate (node-specific) network migratory connectivty strength, or what we call NMCpop in MigConnectivity.
+
+This is the spread on the wintering ground
+
+```{r}
+est.psi<-readRDS("output/MigConn/AMRE/AMRE.psi_estimates.MC.ind144_rmLC.loco-pipe.ref125b.RDS")
+
+#Point estimate of node-specific NMC_XY (NMCpop)
+calcNMC(est.psi$psi$mean)
+
+#Provides mean and SE and 95% Confidence intervals
+estNMC(
+  est.psi,
+  originNames = NULL,
+  targetNames = NULL,
+  originSites = NULL,
+  targetSites = NULL,
+  nSamples = 1000,
+  verbose = 0,
+  alpha = 0.05,
+  returnAllInput = TRUE
+)
+```
+
+## Didn't do this, but code included
+
 We then use the resulting object to estimate the strength of migratory connectivity. We first need some additional data, the distances between originSites and targetSites.
 ```{r}
 # calculate distance between originSites
@@ -181,7 +207,8 @@ targetCentersAMRE <- st_transform(targetCentersAMRE, 4326)
 targetDistAMRE <- distFromPos(st_coordinates(targetCentersAMRE$geometry))
 ```
 
-## Estimate the strength of migratory connectivity with abundance estimates from breeding nodes
+Estimate the strength of migratory connectivity with abundance estimates from breeding nodes
+
 ```{r}
 origin.abund <- c(26080,9419,19011,2403,72147)
 origin.abund <- origin.abund / sum(origin.abund)
@@ -192,29 +219,7 @@ AMREmc <- estStrength(originDist = originDistAMRE,
                       psi = est.psi,
                       nSamples = 5000,
                       verbose = 0)
-AMREmc #MC estimate (mean): 0.6134 +/- (SE) 0.09929 
+AMREmc 
 
 ```
 
-
-## Uses the transition probabilities to estimated network migratory connectivty strength (node-specific), what we call NMCpop in MigConnectivity
-
-```{r}
-est.psi<-readRDS("output/MigConn/AMRE/AMRE.psi_estimates.MC.ind144_rmLC.loco-pipe.ref125b.RDS")
-
-#Point estimate of node-specific NMC_XY (NMCpop)
-calcNMC(est.psi$psi$mean)
-
-#Provides mean and SE and 95% Confidence intervals
-estNMC(
-  est.psi,
-  originNames = NULL,
-  targetNames = NULL,
-  originSites = NULL,
-  targetSites = NULL,
-  nSamples = 1000,
-  verbose = 0,
-  alpha = 0.05,
-  returnAllInput = TRUE
-)
-```

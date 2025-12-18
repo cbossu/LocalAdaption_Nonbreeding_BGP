@@ -9,8 +9,16 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Install packages for MigConnectivity to estimate strength of connectivity and mignette for calculating abundances of breeding and nonbreeding nodes and visualization of transition probabilities
 
+```
+#new version on CRAN has NMC calculation
+install.packages("MigConnectivity")
+# install.packages("remotes")
+remotes::install_github("mgdesaix/mignette")
+```
 ```{r}
+Sys.setenv("PROJ_LIB"="/Library/Frameworks/R.framework/Resources/library/sf/proj")
 library(MigConnectivity)
 library(mignette)
 library(terra)
@@ -18,10 +26,9 @@ library(tidyverse)
 library(lwgeom)
 ```
 
-#Read in polygons of breeding 
+#Read in polygons of breeding genoscape
 ```{r}
-swth_genoscape<-rast("input/MigConn/SWTH/SWTH.3x.gatk3_ldExcl.genoscape_brick.tif")
-swth_genoscape<-terra::rast("~/Dropbox/BGP/SWTH/LCWG/maps/SWTH.3x.genoscape_brick.WGS84.tif")
+swth_genoscape<-terra::rast("input/MigConn/SWTH/SWTH.3x.genoscape_brick.WGS84.tif")
 
 genoscape_polygons <- mignette::scape_to_shape(x = swth_genoscape, 
                                                prob_threshold = 0.5)
@@ -114,9 +121,9 @@ swth.psi <- estTransition(originSites = genoscape,
 
 Plot transitions
 ```{r}
-saveRDS(swth.psi,"output/MigConn/SWTH/SWTH.psi_estimates.MC.loco-pipe.snp.RDS")
+saveRDS(swth.psi,"output/MigConn/SWTH/SWTH.psi_estimates.MC.loco-pipe.RDS")
 
-pdf("output/MigConn/SWTH/SWTH.estTrans_plot.loco-pipe.angsd.lcwg_snp.pdf")
+pdf("output/MigConn/SWTH/SWTH.estTrans_plot.loco-pipe.angsd.lcwg.pdf")
 par(mar = c(2,3,0,0))
 plot(swth.psi, legend = "topleft", cex = 0.2)
 dev.off()
@@ -124,6 +131,46 @@ dev.off()
 
 ```
 
+# Estimate the strength of migratory connectivity
+```{r}
+origin.abund <- c(2789155,104240,535510)
+origin.abund <- origin.abund / sum(origin.abund)
+origin.abund
+SWTHmc <- estStrength(originDist = originDistSWTH,
+                      targetDist = targetDistSWTH,
+                      originRelAbund =  origin.abund,
+                      psi = swth.psi,
+                      nSamples = 5000,
+                      verbose = 0)
+SWTHmc
+```
+
+## Uses the transition probabilities to estimate (node-specific) network migratory connectivty strength, or what we call NMCpop in MigConnectivity.
+
+This is the spread on the wintering ground
+
+```{r}
+swth.psi<-readRDS("output/MigConn/SWTH/SWTH.psi_estimates.MC.loco-pipe.RDS")
+
+calcNMC(swth.psi$psi$mean)
+
+swth.psi$psi$mean
+estNMC(
+  swth.psi,
+  originNames = NULL,
+  targetNames = NULL,
+  originSites = NULL,
+  targetSites = NULL,
+  nSamples = 1000,
+  verbose = 0,
+  alpha = 0.05,
+  returnAllInput = TRUE
+)
+
+```
+
+
+## Didn't do this, but code included
 We then use the resulting object to estimate the strength of migratory connectivity. We first need some additional data, the distances between originSites and targetSites.
 ```{r}
 # calculate distance between originSites
@@ -147,37 +194,4 @@ targetCentersSWTH <- st_transform(targetCentersSWTH, 4326)
 targetDistSWTH <- distFromPos(st_coordinates(targetCentersSWTH$geometry))
 ```
 
-# Estimate the strength of migratory connectivity
-```{r}
-origin.abund <- c(2789155,104240,535510)
-origin.abund <- origin.abund / sum(origin.abund)
-origin.abund
-SWTHmc <- estStrength(originDist = originDistSWTH,
-                      targetDist = targetDistSWTH,
-                      originRelAbund =  origin.abund,
-                      psi = swth.psi,
-                      nSamples = 5000,
-                      verbose = 0)
-SWTHmc
-```
 
-## Calc NMCpop for species and populations (with and without uncertainty). calcNCM is currently not working, but reached out to Jeff.
-```{r}
-swth.psi<-readRDS("output/MigConn/SWTH/SWTH.psi_estimates.MC.loco-pipe.snp.RDS")
-
-calcNMC(swth.psi$psi$mean)
-
-swth.psi$psi$mean
-estNMC(
-  swth.psi,
-  originNames = NULL,
-  targetNames = NULL,
-  originSites = NULL,
-  targetSites = NULL,
-  nSamples = 1000,
-  verbose = 0,
-  alpha = 0.05,
-  returnAllInput = TRUE
-)
-
-```
