@@ -31,7 +31,8 @@ library(lwgeom)
 
 ```
 
-## Read in polygons of breeding genetic groups
+## Read in polygons of breeding genetic groups. Can convert genoscape raster to polygons in mignette.
+
 ```{r}
 amre_genoscape<-terra::rast("input/MigConn/AMRE/AMRE.genoscape_brick.tif")
 
@@ -92,16 +93,19 @@ target.names <- ecoregions$Region
 target.names
 
 ```
-Note: We ran this multiple times (with raster over several years). The proportions largely stayed the same even if the numbers didn't
+
+Note: We ran this multiple times (with different abundance rasters for several years). The proportions largely stayed the same even if the numbers didn't
 
 ```{r}
-target.abund <- c(7357, 11995, 40111, 50071,24885,95392) #numbers (from 2022)
+#target.abund <- c(7357, 11995, 40111, 50071,24885,95392) #numbers (from 2022)
 target.abund <- c(742, 1360, 13385, 18976,3919,58251) #new numbers (from 2023)
 
 target.abund <- target.abund / sum(target.abund)
 target.abund
 ```
-##Target points
+
+## Target points
+
 ```{r}
 ##Loco-pipe target points- REF 125b
 target.points <- read.delim("input/MigConn/AMRE/AMRE.wint148.thin10.REF125b.WGSassign_consistent.angsd.lcpipe.txt",sep="\t")  %>% 
@@ -146,7 +150,7 @@ est.psi <- estTransition(originSites = genoscape,
 summary(est.psi)
 ```
 
-Plot transitions
+## Plot transitions
 ```{r}
 est.psi<-write_rds("output/MigConn/AMRE/AMRE.psi_estimates.MC.ind144_rmLC.loco-pipe.ref125b.updatedMigConn.RDS")
 
@@ -189,7 +193,7 @@ We then use the resulting object to estimate the strength of migratory connectiv
 ```{r}
 # calculate distance between originSites
 originCentersAMRE <- st_centroid(genoscape)
-#> Warning: st_centroid assumes attributes are constant over geometries
+
 originCentersAMRE <- st_transform(originCentersAMRE, 4326)
 originDistAMRE <- distFromPos(st_coordinates(originCentersAMRE$geometry))
 
@@ -202,7 +206,7 @@ coord<-originCentersAMRE %>%
 cbind(originCentersAMRE1,coord) %>% rename(Long=X,Lat=Y)
 # calculate distance between targetSites 
 targetCentersAMRE <- st_centroid(ecoregions)
-#> Warning: st_centroid assumes attributes are constant over geometries
+
 targetCentersAMRE <- st_transform(targetCentersAMRE, 4326)
 targetDistAMRE <- distFromPos(st_coordinates(targetCentersAMRE$geometry))
 ```

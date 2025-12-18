@@ -30,7 +30,8 @@ library(sf)
 library(lwgeom)
 ```
 
-#Read in polygons of breeding genoscape
+## Read in polygons of breeding genoscape. Can first convert genoscape raster to polygons in mignette
+
 ```{r}
 wifl_genoscape<-terra::rast("input/MigConn/WIFL//WIFL_Genoscape_Spat_Raster_K4.tif")
 
@@ -86,7 +87,8 @@ origin.names
 
 ```
 
-##Ecoregions
+## Nonbreeding ecoregions
+
 ```{r}
 library(sf)
 ecoregions<-read_sf("input/MigConn/WIFL/nonbreeding_nodes/WIFL_winterEcoregions6_simple_sf_WGS84_eBird.shp") %>% 
@@ -94,7 +96,6 @@ ecoregions<-read_sf("input/MigConn/WIFL/nonbreeding_nodes/WIFL_winterEcoregions6
   sf::st_as_sf()
 summary(ecoregions)
 
-nonbr_abunds<-rast("~/Dropbox/BGP/Network_modeling_Mignette/ConnectivityModel/WIFL/wilfly_abundance_seasonal_nonbreeding_mean_2022.tif")
 nonbr_abunds<-rast("input/MigConn/WIFL/wilfly_abundance_seasonal_nonbreeding_mean_2023.tif")
 
 nonbr_abunds_proj <- terra::project(nonbr_abunds, crs(ecoregions))
@@ -105,7 +106,7 @@ target.names <- ecoregions$Region
 target.names
 ```
 ```{r}
-#Without NAndes
+#Without NAndes because when include, nothing actually goes there
 #target.abund <- c(100.859306, 38.20193831, 1175.865933,11.02263654,226.1743285) #earlier abundance version
 
 target.abund <- c(91, 4, 625,22,268) #2023
@@ -113,22 +114,23 @@ target.abund <- c(91, 4, 625,22,268) #2023
 target.abund <- target.abund / sum(target.abund)
 target.abund
 ```
-##Target points
+
+## Target points
+
 ```{r}
-target.points <- read.delim ("~/Dropbox/BGP/WIFL_meta_clean/snakemake_loco-pipe/WGSAssign/wifl.wint128.thin_10_all.assigned_pop.REF_exclWTMT.wide_consistent.angsd.loco-pipe.txt",sep="\t") %>%
+target.points <- read.delim ("input/MigConn/WIFL/wifl.wint128.thin_10_all.assigned_pop.REF_exclWTMT.wide_consistent.angsd.loco-pipe.txt",sep="\t") %>%
   st_as_sf(coords = c("Long", "Lat"))
 target.points
-
 ```
 
-##Get assignment in order
+## Get assignment in order and create matrix
+
 ```{r}
 #lcwg WGSassign consistency with angsd loco-pipe pipeline
-assign_mc2<-read.delim("~/Dropbox/BGP/WIFL_meta_clean/snakemake_loco-pipe/WGSAssign/wifl.wint128.thin_10_all.assigned_pop.REF_exclWTMT.wide_consistent.angsd.loco-pipe.txt",sep="\t")  %>% 
-  #rename(Sample1=Sample) %>% 
-  #arrange(Sample) %>% 
+assign_mc2<-read.delim("input/MigConn/WIFL/wifl.wint128.thin_10_all.assigned_pop.REF_exclWTMT.wide_consistent.angsd.loco-pipe.txt",sep="\t")  %>% 
   mutate(SD=0) %>% 
-  dplyr::select(EST,SW,PNW_INW) %>% as.matrix()
+  dplyr::select(EST,SW,PNW_INW) %>% 
+  as.matrix()
 
 ```
 
@@ -152,7 +154,7 @@ est.psi <- estTransition(originSites = genoscape,
 
 ```
 
-Plot transitions
+## Plot transitions
 ```{r}
 saveRDS(est.psi,"output/MigConn/WIFL/WIFL.psi_estimates.MC.loco-pipe.exclSD0.exclNAndes.updatedMigConn.RDS")
 
@@ -182,23 +184,19 @@ estNMC(
   returnAllInput = TRUE
 )
 ```
-```{r}
-wifl.psi<-readRDS("LCWG_mignette/WIFL.psi_estimates.MC.loco-pipe.exclSD0.updatedMigConn.RDS")
-calcNMC(wifl.psi$psi$mean)
-```
-
+## Didn't do this, but code included
 
 We then use the resulting object to estimate the strength of migratory connectivity. We first need some additional data, the distances between originSites and targetSites.
 ```{r}
 # calculate distance between originSites
 originCentersWIFL <- st_centroid(genoscape)
-#> Warning: st_centroid assumes attributes are constant over geometries
+
 originCentersWIFL <- st_transform(originCentersWIFL, 4326)
 originDistWIFL <- distFromPos(st_coordinates(originCentersWIFL$geometry))
 
 # calculate distance between targetSites 
 targetCentersWIFL <- st_centroid(ecoregions)
-#> Warning: st_centroid assumes attributes are constant over geometries
+
 targetCentersWIFL <- st_transform(targetCentersWIFL, 4326)
 targetDistWIFL <- distFromPos(st_coordinates(targetCentersWIFL$geometry))
 ```
@@ -215,5 +213,5 @@ WIFLmc <- estStrength(originDist = originDistWIFL,
                       psi = est.psi,
                       nSamples = 5000,
                       verbose = 0)
-WIFLmc #MC estimate (mean): 0.1201 +/- (SE) 0.07217 
+WIFLmc 
 ```

@@ -26,7 +26,8 @@ library(tidyverse)
 library(lwgeom)
 ```
 
-#Read in polygons of breeding genoscape
+## Read in polygons of breeding genetic groups. Can convert genoscape raster to polygons in mignette.
+
 ```{r}
 swth_genoscape<-terra::rast("input/MigConn/SWTH/SWTH.3x.genoscape_brick.WGS84.tif")
 
@@ -63,7 +64,7 @@ origin.names <- genoscape$Cluster
 origin.names
 ```
 
-##Ecoregions
+## Define ecoregions sampled
 ```{r}
 ecoregions<-read_sf("input/MigConn/SWTH/nonbreeding_nodes/SWTH_winterEcoregions_sample_simple_sf_WGS84_Ebird.shp") %>% sf::st_as_sf()
 nonbr_abunds<-rast("input/MigConn/SWTH/swathr_abundance_seasonal_nonbreeding_mean_2021.tif")
@@ -83,7 +84,9 @@ target.abund <- c(1239, 3653, 4353, 52567,2535,1498,21719) #2023
 target.abund <- target.abund / sum(target.abund)
 target.abund
 ```
-##Target points
+
+## Target points
+
 ```{r}
 target.points_lcwg <- read_delim("input/MigConn/SWTH/SWTH.wint133.thin_10_all.assigned_pop.REF35.wide_consistent.angsd.loco-pipe.w_meta.citation.txt",delim="\t") %>% 
   filter(Sample!="07N53154") %>%
@@ -92,7 +95,7 @@ target.points_lcwg <- read_delim("input/MigConn/SWTH/SWTH.wint133.thin_10_all.as
 target.points_lcwg
 ```
 
-##Get assignment in order
+## Get assignment in order
 ```{r}
 assign_mc_lcwg<-read_delim("input/MigConn/SWTH/SWTH.wint133.thin_10_all.assigned_pop.REF35.wide_consistent.angsd.loco-pipe.w_meta.citation.txt",delim="\t") %>% filter(Sample!="07N53154") %>% dplyr::select(W_E_Boreal,PacificCoast,PNW) %>%
   as.matrix()
@@ -119,7 +122,7 @@ swth.psi <- estTransition(originSites = genoscape,
 
 ```
 
-Plot transitions
+## Plot transitions
 ```{r}
 saveRDS(swth.psi,"output/MigConn/SWTH/SWTH.psi_estimates.MC.loco-pipe.RDS")
 
@@ -131,7 +134,7 @@ dev.off()
 
 ```
 
-# Estimate the strength of migratory connectivity
+## Estimate the strength of migratory connectivity
 ```{r}
 origin.abund <- c(2789155,104240,535510)
 origin.abund <- origin.abund / sum(origin.abund)
@@ -193,5 +196,3 @@ targetCentersSWTH <- st_centroid(ecoregions)
 targetCentersSWTH <- st_transform(targetCentersSWTH, 4326)
 targetDistSWTH <- distFromPos(st_coordinates(targetCentersSWTH$geometry))
 ```
-
-
