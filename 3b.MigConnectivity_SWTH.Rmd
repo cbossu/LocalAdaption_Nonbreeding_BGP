@@ -1,0 +1,183 @@
+---
+title: "MigConnectivity-SWTH"
+author: "Christen Bossu"
+date: "6/14/2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(MigConnectivity)
+library(mignette)
+library(terra)
+library(tidyverse)
+library(lwgeom)
+```
+
+#Read in polygons of breeding 
+```{r}
+swth_genoscape<-rast("input/MigConn/SWTH/SWTH.3x.gatk3_ldExcl.genoscape_brick.tif")
+swth_genoscape<-terra::rast("~/Dropbox/BGP/SWTH/LCWG/maps/SWTH.3x.genoscape_brick.WGS84.tif")
+
+genoscape_polygons <- mignette::scape_to_shape(x = swth_genoscape, 
+                                               prob_threshold = 0.5)
+
+genoscape_polygons2<- genoscape_polygons %>% mutate(br_node=if_else(Cluster=="SWTH.3x.genoscape_brick.WGS84_1","W_E_Boreal",if_else(Cluster=="SWTH.3x.genoscape_brick.WGS84_2","PacificCoast","PNW")))
+cluster_colors <-  c(
+  `W_E_Boreal` = "#56B4E9", #cyan, Est
+  `PacificCoast` =  "#F0E442", #yellow, CC
+  `PNW` = "#009E73") #green, PN
+
+ggplot() +
+  geom_sf(data = genoscape_polygons2,alpha = 0.75, aes(fill = br_node)) +
+  scale_fill_manual(values = cluster_colors) +
+  theme_bw()
+```
+
+```{r}
+genoscape_polygons2 %>% filter(br_node=="W_E_Boreal") %>% write_sf("input/MigConn/SWTH/breeding_nodes/SWTH_genoscape_K1_WE_Boreal.shp")
+genoscape_polygons2 %>% filter(br_node=="PacificCoast") %>% write_sf("input/MigConn/SWTH/breeding_nodes/SWTH_genoscape_K2_PacificCoast.shp")
+genoscape_polygons2 %>% filter(br_node=="PNW") %>% write_sf("input/MigConn/SWTH/breeding_nodes/SWTH_genoscape_K3_PNW.shp")
+
+genoscape.WE <- st_read("input/MigConn/SWTH/breeding_nodes/SWTH_genoscape_K1_WE_Boreal.shp") %>%   st_set_crs(4326) %>% st_transform(crs=4326)
+genoscape.PC <- st_read("input/MigConn/SWTH/breeding_nodes/SWTH_genoscape_K2_PacificCoast.shp") %>% st_set_crs(4326) %>% st_transform(crs=4326)
+genoscape.PNW <- st_read("input/MigConn/SWTH/breeding_nodes/SWTH_genoscape_K3_PNW.shp") %>% st_set_crs(4326) %>% st_transform(crs=4326)
+```
+```{r}
+genoscape <- rbind(genoscape.WE,
+                   genoscape.PC,
+                   genoscape.PNW)
+genoscape$Cluster <- c("W_E_Boreal", "PacificCoast", "PNW")
+origin.names <- genoscape$Cluster
+origin.names
+```
+
+##Ecoregions
+```{r}
+ecoregions<-read_sf("input/MigConn/SWTH/nonbreeding_nodes/SWTH_winterEcoregions_sample_simple_sf_WGS84_Ebird.shp") %>% sf::st_as_sf()
+nonbr_abunds<-rast("input/MigConn/SWTH/swathr_abundance_seasonal_nonbreeding_mean_2021.tif")
+nonbr_abunds<-rast("~/Downloads/swathr_abundance_seasonal_nonbreeding_mean_2023.tif")
+
+nonbr_abunds_proj <- terra::project(nonbr_abunds, crs(ecoregions))
+
+winter_abunds <- get_vector_abunds(populations = ecoregions, abunds = nonbr_abunds_proj,pop_names=ecoregions[[6]])
+
+target.names <- ecoregions$Region
+target.names
+```
+```{r}
+#target.abund <- c(1312, 5173, 5931, 53786,5199,1865,25576) #earlier numbers
+target.abund <- c(1239, 3653, 4353, 52567,2535,1498,21719) #2023
+
+target.abund <- target.abund / sum(target.abund)
+target.abund
+```
+##Target points
+```{r}
+target.points_lcwg <- read_delim("input/MigConn/SWTH/SWTH.wint133.thin_10_all.assigned_pop.REF35.wide_consistent.angsd.loco-pipe.w_meta.citation.txt",delim="\t") %>% 
+  filter(Sample!="07N53154") %>%
+  dplyr::select(Long,Lat) %>% 
+  st_as_sf(coords = c("Long", "Lat"))
+target.points_lcwg
+```
+
+##Get assignment in order
+```{r}
+assign_mc_lcwg<-read_delim("input/MigConn/SWTH/SWTH.wint133.thin_10_all.assigned_pop.REF35.wide_consistent.angsd.loco-pipe.w_meta.citation.txt",delim="\t") %>% filter(Sample!="07N53154") %>% dplyr::select(W_E_Boreal,PacificCoast,PNW) %>%
+  as.matrix()
+
+```
+
+```{r}
+st_crs(target.points_lcwg) <- st_crs(genoscape) <- st_crs(ecoregions)
+swth.psi <- estTransition(originSites = genoscape,
+                          targetSites = ecoregions,
+                          targetPoints = target.points_lcwg,
+                          originAssignment = assign_mc_lcwg,
+                          isTelemetry = FALSE,
+                          isRaster = FALSE,
+                          isProb = TRUE,
+                          captured = "target",
+                          targetNames = target.names,
+                          originNames = origin.names,
+                          targetRelAbund = target.abund,
+                          verbose = 3,
+                          nSamples = 100
+                          )
+
+
+```
+
+Plot transitions
+```{r}
+saveRDS(swth.psi,"output/MigConn/SWTH/SWTH.psi_estimates.MC.loco-pipe.snp.RDS")
+
+pdf("output/MigConn/SWTH/SWTH.estTrans_plot.loco-pipe.angsd.lcwg_snp.pdf")
+par(mar = c(2,3,0,0))
+plot(swth.psi, legend = "topleft", cex = 0.2)
+dev.off()
+
+
+```
+
+We then use the resulting object to estimate the strength of migratory connectivity. We first need some additional data, the distances between originSites and targetSites.
+```{r}
+# calculate distance between originSites
+originCentersSWTH <- st_centroid(genoscape)
+#> Warning: st_centroid assumes attributes are constant over geometries
+originCentersSWTH <- st_transform(originCentersSWTH, 4326)
+originDistSWTH <- distFromPos(st_coordinates(originCentersSWTH$geometry))
+
+originCentersSWTH1<-originCentersSWTH %>% st_drop_geometry()
+coord<-originCentersSWTH %>%
+  # 2 Extract coordinates
+  st_coordinates() %>%
+  # 3 to table /tibble
+  as.data.frame()
+cbind(originCentersSWTH1,coord) %>% rename(Long=X,Lat=Y)
+
+# calculate distance between targetSites 
+targetCentersSWTH <- st_centroid(ecoregions)
+#> Warning: st_centroid assumes attributes are constant over geometries
+targetCentersSWTH <- st_transform(targetCentersSWTH, 4326)
+targetDistSWTH <- distFromPos(st_coordinates(targetCentersSWTH$geometry))
+```
+
+# Estimate the strength of migratory connectivity
+```{r}
+origin.abund <- c(2789155,104240,535510)
+origin.abund <- origin.abund / sum(origin.abund)
+origin.abund
+SWTHmc <- estStrength(originDist = originDistSWTH,
+                      targetDist = targetDistSWTH,
+                      originRelAbund =  origin.abund,
+                      psi = swth.psi,
+                      nSamples = 5000,
+                      verbose = 0)
+SWTHmc
+```
+
+## Calc NMCpop for species and populations (with and without uncertainty). calcNCM is currently not working, but reached out to Jeff.
+```{r}
+swth.psi<-readRDS("output/MigConn/SWTH/SWTH.psi_estimates.MC.loco-pipe.snp.RDS")
+
+calcNMC(swth.psi$psi$mean)
+
+swth.psi$psi$mean
+estNMC(
+  swth.psi,
+  originNames = NULL,
+  targetNames = NULL,
+  originSites = NULL,
+  targetSites = NULL,
+  nSamples = 1000,
+  verbose = 0,
+  alpha = 0.05,
+  returnAllInput = TRUE
+)
+
+```

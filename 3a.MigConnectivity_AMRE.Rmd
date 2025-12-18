@@ -1,0 +1,220 @@
+---
+title: "MigConnectivity-WIFL"
+author: "Christen Bossu"
+date: "6/14/2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Install packages for MigConnectivity to estimate strength of connectivity and mignette for calculating abundances of breeding and nonbreeding nodes and visualization of transition probabilities
+
+```
+#new version on CRAN has NMC calculation
+install.packages("MigConnectivity")
+# install.packages("remotes")
+remotes::install_github("mgdesaix/mignette")
+install.packages("sf")
+
+```
+## The location of the proj.db changed on new computer so I needed to specify where it was- this might not be necessary for most people (MacbookPro M4)
+```{r}
+Sys.setenv("PROJ_LIB"="/Library/Frameworks/R.framework/Resources/library/sf/proj")
+library(MigConnectivity) 
+library(mignette)
+library(sf)
+library(tidyverse)
+library(terra)
+#library(raster)
+library(lwgeom)
+
+```
+
+## Read in polygons of breeding genetic groups
+```{r}
+amre_genoscape<-terra::rast("input/MigConn/AMRE/AMRE.genoscape_brick.tif")
+
+genoscape_polygons <- mignette::scape_to_shape(x = amre_genoscape, 
+                                               prob_threshold = 0.5)
+
+genoscape_polygons2<- genoscape_polygons %>% mutate(br_node=if_else(Cluster=="AMRE.genoscape_brick_1","WB",if_else(Cluster=="AMRE.genoscape_brick_2","ST",if_else(Cluster=="AMRE.genoscape_brick_3","MP",if_else(Cluster=="AMRE.genoscape_brick_4","BR","NT")))))
+
+##colorblind cluster colors okabe_ito
+cluster_colors <-  c(
+  WB = "#009E73", #green, F0E442yellow, western boreal
+  ST = "#E69F00", #orange, south temperate
+  MP = "#000066", #navy blue, maritime provinces
+  BR = "#CC79A7", #, basin rockies
+  NT = "#56B4E9")  #blue, northern temperate
+
+ggplot() +
+  geom_sf(data = genoscape_polygons2,alpha = 0.75, aes(fill = br_node)) +
+  scale_fill_manual(values = cluster_colors) +
+  theme_bw()
+```
+
+```{r}
+genoscape_polygons2 %>% filter(br_node=="WB") %>% write_sf("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K1_WB.shp")
+genoscape_polygons2 %>% filter(br_node=="ST") %>% write_sf("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K2_ST.shp")
+genoscape_polygons2 %>% filter(br_node=="MP") %>% write_sf("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K3_MP.shp")
+genoscape_polygons2 %>% filter(br_node=="BR") %>% write_sf("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K4_BR.shp")
+genoscape_polygons2 %>% filter(br_node=="NT") %>% write_sf("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K5_NT.shp")
+
+genoscape.WB <- st_read("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K1_WB.shp") %>%   st_set_crs(4326) %>% st_transform(crs=4326)
+genoscape.ST <- st_read("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K2_ST.shp") %>% st_set_crs(4326) %>% st_transform(crs=4326)
+genoscape.MP <- st_read("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K3_MP.shp") %>% st_set_crs(4326) %>% st_transform(crs=4326)
+genoscape.BR <- st_read("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K4_BR.shp") %>% st_set_crs(4326) %>% st_transform(crs=4326)
+genoscape.NT <- st_read("input/MigConn/AMRE/breeding_nodes/AMRE_genoscape_K5_NT.shp") %>% st_set_crs(4326) %>% st_transform(crs=4326)
+```
+```{r}
+genoscape <- rbind(genoscape.WB,
+                   genoscape.ST,
+                   genoscape.MP,
+                   genoscape.BR,
+                   genoscape.NT)
+genoscape$Cluster <- c("WB", "ST", "MP", "BR", "NT")
+origin.names <- genoscape$Cluster
+origin.names
+```
+
+## Winter Ecoregions
+```{r}
+ecoregions<-read_sf("input/MigConn/AMRE/nonbreeding_nodes/AMRE.winterEcoregion6s_inclNAndes.Gen.simple.sf.WGS84.Ebird.shp") %>% sf::st_as_sf()
+
+## Download abundance raster of AMRE from eBird 
+amre_abunds <- terra::rast("input/MigConn/AMRE/amered_abundance_seasonal_nonbreeding_mean_2023.tif")
+amre_winter <- amre_abunds["nonbreeding"] %>%
+  terra::project(crs(ecoregions))
+winter_abunds <- get_vector_abunds(populations = ecoregions, abunds = amre_winter,pop_names=ecoregions[[6]])
+winter_abunds
+target.names <- ecoregions$Region
+target.names
+
+```
+Note: We ran this multiple times (with raster over several years). The proportions largely stayed the same even if the numbers didn't
+
+```{r}
+target.abund <- c(7357, 11995, 40111, 50071,24885,95392) #numbers (from 2022)
+target.abund <- c(742, 1360, 13385, 18976,3919,58251) #new numbers (from 2023)
+
+target.abund <- target.abund / sum(target.abund)
+target.abund
+```
+##Target points
+```{r}
+##Loco-pipe target points- REF 125b
+target.points <- read.delim("input/MigConn/AMRE/AMRE.wint148.thin10.REF125b.WGSassign_consistent.angsd.lcpipe.txt",sep="\t")  %>% 
+  filter(Sample!="nzpcuba280") %>% filter(Sample!="nzpcuba281") %>% filter(Sample!="nzpcuba82") %>% filter(Sample!="nzpcuba84") %>% arrange(Sample) %>% 
+  #left_join(meta) %>% 
+  st_as_sf(coords = c("Long", "Lat"))
+target.points
+
+
+```
+
+```{r}
+assign<-read.delim("input/MigConn/AMRE/AMRE.wint148.thin10.REF125b.WGSassign_consistent.angsd.lcpipe.txt",sep="\t") %>% filter(Sample!="nzpcuba280") %>% filter(Sample!="nzpcuba281") %>% filter(Sample!="nzpcuba82") %>% filter(Sample!="nzpcuba84")
+
+```
+
+## Get assignment in order 
+```{r}
+#[1] "WB" "ST" "MP" "BR" "NT"
+assign_mc<- assign %>% dplyr::select(WB,ST,MP,BR,NT) %>%
+  as.matrix()
+assign_mc
+```
+
+```{r}
+st_crs(target.points) <- st_crs(genoscape) <- st_crs(ecoregions)
+est.psi <- estTransition(originSites = genoscape,
+                          targetSites = ecoregions,
+                          targetPoints = target.points,
+                          originAssignment = assign_mc,
+                          isTelemetry = FALSE,
+                          isRaster = FALSE,
+                          isProb = TRUE,
+                          captured = "target",
+                          targetNames = target.names,
+                          originNames = origin.names,
+                          targetRelAbund = target.abund,
+                          verbose = 3,
+                          nSamples = 100
+                          )
+
+summary(est.psi)
+```
+
+Plot transitions
+```{r}
+est.psi<-write_rds("output/MigConn/AMRE/AMRE.psi_estimates.MC.ind144_rmLC.loco-pipe.ref125b.updatedMigConn.RDS")
+
+
+pdf("output/MigConn/AMRE/AMRE.estTrans_plot.ind144_rmLC.loco-pipe.ref125b.pdf")
+par(mar = c(2,3,0,0))
+plot(est.psi, legend = "topleft", cex = 0.2)
+dev.off()
+
+```
+
+We then use the resulting object to estimate the strength of migratory connectivity. We first need some additional data, the distances between originSites and targetSites.
+```{r}
+# calculate distance between originSites
+originCentersAMRE <- st_centroid(genoscape)
+#> Warning: st_centroid assumes attributes are constant over geometries
+originCentersAMRE <- st_transform(originCentersAMRE, 4326)
+originDistAMRE <- distFromPos(st_coordinates(originCentersAMRE$geometry))
+
+originCentersAMRE1<-originCentersAMRE %>% st_drop_geometry()
+coord<-originCentersAMRE %>%
+  # 2 Extract coordinates
+  st_coordinates() %>%
+  # 3 to table /tibble
+  as.data.frame()
+cbind(originCentersAMRE1,coord) %>% rename(Long=X,Lat=Y)
+# calculate distance between targetSites 
+targetCentersAMRE <- st_centroid(ecoregions)
+#> Warning: st_centroid assumes attributes are constant over geometries
+targetCentersAMRE <- st_transform(targetCentersAMRE, 4326)
+targetDistAMRE <- distFromPos(st_coordinates(targetCentersAMRE$geometry))
+```
+
+## Estimate the strength of migratory connectivity with abundance estimates from breeding nodes
+```{r}
+origin.abund <- c(26080,9419,19011,2403,72147)
+origin.abund <- origin.abund / sum(origin.abund)
+origin.abund
+AMREmc <- estStrength(originDist = originDistAMRE,
+                      targetDist = targetDistAMRE,
+                      originRelAbund =  origin.abund,
+                      psi = est.psi,
+                      nSamples = 5000,
+                      verbose = 0)
+AMREmc #MC estimate (mean): 0.6134 +/- (SE) 0.09929 
+
+```
+
+
+## Uses the transition probabilities to estimated network migratory connectivty strength (node-specific), what we call NMCpop in MigConnectivity
+
+```{r}
+est.psi<-readRDS("output/MigConn/AMRE/AMRE.psi_estimates.MC.ind144_rmLC.loco-pipe.ref125b.RDS")
+
+#Point estimate of node-specific NMC_XY (NMCpop)
+calcNMC(est.psi$psi$mean)
+
+#Provides mean and SE and 95% Confidence intervals
+estNMC(
+  est.psi,
+  originNames = NULL,
+  targetNames = NULL,
+  originSites = NULL,
+  targetSites = NULL,
+  nSamples = 1000,
+  verbose = 0,
+  alpha = 0.05,
+  returnAllInput = TRUE
+)
+```
