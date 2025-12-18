@@ -107,9 +107,9 @@ target.names
 ```
 ```{r}
 #Without NAndes because when include, nothing actually goes there
-#target.abund <- c(100.859306, 38.20193831, 1175.865933,11.02263654,226.1743285) #earlier abundance version
+target.abund <- c(100.859306, 38.20193831, 1175.865933,11.02263654,226.1743285) #earlier abundance version
 
-target.abund <- c(91, 4, 625,22,268) #2023
+#target.abund <- c(91, 4, 625,22,268) #2023 numbers if code used above
 
 target.abund <- target.abund / sum(target.abund)
 target.abund
@@ -163,6 +163,10 @@ par(mar = c(2,3,0,4),xpd = TRUE)
 plot(est.psi,legend ="topright",cex=1)
 dev.off()
 ```
+## Print mean transition probaibilities
+```{r}
+est.psi$psi$mean
+```
 
 ## Uses the transition probabilities to estimate (node-specific) network migratory connectivty strength, or what we call NMCpop in MigConnectivity.
 
@@ -170,6 +174,7 @@ This is the spread on the wintering ground
 
 ```{r}
 est.psi<-readRDS("output/MigConn/WIFL/WIFL.psi_estimates.MC.loco-pipe.exclSD0.exclNAndes.updatedMigConn.RDS")
+
 calcNMC(est.psi$psi$mean)
 
 estNMC(

@@ -78,8 +78,8 @@ target.names <- ecoregions$Region
 target.names
 ```
 ```{r}
-#target.abund <- c(1312, 5173, 5931, 53786,5199,1865,25576) #earlier numbers
-target.abund <- c(1239, 3653, 4353, 52567,2535,1498,21719) #2023
+target.abund <- c(1312, 5173, 5931, 53786,5199,1865,25576) #earlier year numbers used
+#target.abund <- c(1239, 3653, 4353, 52567,2535,1498,21719) #2023 numbers if you use the code above
 
 target.abund <- target.abund / sum(target.abund)
 target.abund
@@ -134,19 +134,11 @@ dev.off()
 
 ```
 
-## Estimate the strength of migratory connectivity
+## Print mean transition probaibilities
 ```{r}
-origin.abund <- c(2789155,104240,535510)
-origin.abund <- origin.abund / sum(origin.abund)
-origin.abund
-SWTHmc <- estStrength(originDist = originDistSWTH,
-                      targetDist = targetDistSWTH,
-                      originRelAbund =  origin.abund,
-                      psi = swth.psi,
-                      nSamples = 5000,
-                      verbose = 0)
-SWTHmc
+est.psi$psi$mean
 ```
+
 
 ## Uses the transition probabilities to estimate (node-specific) network migratory connectivty strength, or what we call NMCpop in MigConnectivity.
 
@@ -172,7 +164,6 @@ estNMC(
 
 ```
 
-
 ## Didn't do this, but code included
 We then use the resulting object to estimate the strength of migratory connectivity. We first need some additional data, the distances between originSites and targetSites.
 ```{r}
@@ -196,3 +187,18 @@ targetCentersSWTH <- st_centroid(ecoregions)
 targetCentersSWTH <- st_transform(targetCentersSWTH, 4326)
 targetDistSWTH <- distFromPos(st_coordinates(targetCentersSWTH$geometry))
 ```
+
+## Estimate the strength of migratory connectivity
+```{r}
+origin.abund <- c(2789155,104240,535510)
+origin.abund <- origin.abund / sum(origin.abund)
+origin.abund
+SWTHmc <- estStrength(originDist = originDistSWTH,
+                      targetDist = targetDistSWTH,
+                      originRelAbund =  origin.abund,
+                      psi = swth.psi,
+                      nSamples = 5000,
+                      verbose = 0)
+SWTHmc
+```
+
