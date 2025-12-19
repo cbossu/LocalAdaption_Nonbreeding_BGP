@@ -19,7 +19,7 @@ Investigating local adaptation on the nonbreeding ground of 3 migratory species.
 
 1c.RDA_WIFL.Rmd : Code to replicate RDA analyses for Willow flycatcher breeding and nonbreeding populations. Genomic data can be downloaded from dryad.
 
-2.Climate_distinctiveness_nonbreeding.R: Code to replicate the environmental distinctiveness analysis. Large rasters and shapefiles will need to be downloaded separately, however, url to their location are provide.
+2.Climate_distinctiveness_nonbreeding.R: Code to replicate the environmental distinctiveness analyses. Large rasters and shapefiles will need to be downloaded separately, however, urls to their location are provided.
 
 3a.MigConnectivity_AMRE.Rmd : Code and data to replicate the MigConnectivity calculation of NMC for American redstart.
 

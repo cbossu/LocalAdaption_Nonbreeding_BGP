@@ -15,7 +15,7 @@ library(xlsx)
 
 setwd("~/Rproj_git/LocalAdaption_Nonbreeding_BGP/")
 ## This is the metadata obtained from the previously conducted genoscape analyses. It has 5 columns: species, season, population, longitude, and latitude. Each row is an individual sample.
-data_for_analysis <- read.csv("input/distinctiveness/data_for_analysis_new_wintering.3species.csv")
+data_for_analysis <- read.csv("./input/distinctiveness/data_for_analysis_new_wintering.3species.csv")
 species.names <- unique(data_for_analysis$species)
 
 ## Map of the Americas
@@ -34,7 +34,7 @@ ecoregions <- terra::crop(ecoregions, newmap)
 ecoregions <- ecoregions[-96,] # remove an ecoregion whose polygon is causing problems with spatial manipulations
 
 
-## Download ebird seasonal relative abundance surfaces for all species (freely available)
+## Download eBird seasonal relative abundance surfaces for all species (freely available)
 ## Need a key to access eBird data
 set_ebirdst_access_key("XXXXX",overwrite=T)
 species.names.ebird <- c("wilfly", "swathr", "amered")
@@ -75,7 +75,7 @@ for(i in 1:length(species.names)){
 }
 
 
-## Extract worldclim, 2.5 res, 1970-2000 (monthly mean, prec)- https://www.worldclim.org/data/worldclim21.html#
+## Extract WorldClim, 2.5 res, 1970-2000 (monthly mean, prec)- https://www.worldclim.org/data/worldclim21.html#
 winter <- c("01","02","12")
 Temp_files <- list.files("input/distinctiveness/worldclim/wc2.1_2.5m_tavg")
 Prec_files <- list.files("input/distinctiveness/worldclim/wc2.1_2.5m_prec")
@@ -88,8 +88,8 @@ prec_NB <- mean(prec_NB)
 crs(temp_NB) <- crs(prec_NB) <- "+proj=longlat +datum=WGS84"
 
 
-##if you were to use Chelsa climate rasters
-## Extract climate for each ecoregion. Climate was downloaded from Chelsa climatologies 1981-2010 (freely available)
+##if you were to use CHELSA climate rasters
+## Extract climate for each ecoregion. Climate was downloaded from CHELSA climatologies 1981-2010 (freely available)- https://www.chelsa-climate.org/datasets/chelsa_climatologies
 winter <- c("01","02","12")
 Temp_files <- list.files("~/Dropbox/BGP/Network_modeling_Mignette/LocalAdapt/Manuscript_Revision/distinctiveness/chelsa/tmean")
 Prec_files <- list.files("~/Dropbox/BGP/Network_modeling_Mignette/LocalAdapt/Manuscript_Revision/distinctiveness/chelsa/prec")
