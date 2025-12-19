@@ -1,0 +1,222 @@
+---
+title: "Redundancy analyses (RDA)-AMRE"
+author: "Sheela Turbek"
+date: "2023-06-24"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## Install packages to identify RDA candidate loci associated with temperature and precipitation
+
+```{r}
+library(vegan)
+library(tidyverse)
+library(data.table)
+```
+
+### Run breeding RDA
+
+```{r}
+# Read in breeding pop allele frequencies. These files can be downloaded from dryad.
+gen.imp <- fread("./input/RDA/AMRE/amre_breeding_pop_af.csv.gz")
+
+# Remove pop label
+gen.imp <- gen.imp %>% 
+  select(-pop)
+dim(gen.imp) # 16 23508301
+
+# Read in environmental info
+pred = read.csv("./input/RDA/AMRE/amre_breeding_climate.csv", header=T)
+dim(pred) # 16  6
+
+# Check correlations and remove any MEMs with correlation > 0.7
+cor(pred[, -1], method="pearson")
+
+# remove MEM1 due to correlations
+pred <- pred %>% select(-MEM1)
+
+dim(pred)
+# 16  5
+
+# Run RDA
+breeding.rda <- rda(gen.imp ~ precip + temp + Condition(MEM2:MEM3), data=pred, scale=T)
+
+# Calculate summary statistics
+RsquareAdj(breeding.rda)
+summary(eigenvals(breeding.rda, model = "constrained"))
+vif.cca(breeding.rda)
+```
+
+### Extract candidates on breeding grounds
+
+```{r}
+load.rda <- scores(breeding.rda, choices=c(1:2), display="species")  # Species scores for the first two constrained axes
+
+outliers <- function(x, z){
+  lims <- mean(x) + c(-1, 1) * z * sd(x)     # find loadings +/-z sd from mean loading     
+  x[x < lims[1] | x > lims[2]]               # locus names in these tails
+}
+
+cand1 <- outliers(load.rda[, 1], 3)
+length(cand1) # 9686 candidate loci on RDA axis 1
+cand2 <- outliers(load.rda[, 2], 3)
+length(cand2) # 19625 candidate loci on RDA axis 2
+
+ncand <- length(cand1) + length(cand2)
+ncand # 29311 candidate loci
+
+cand1 <- cbind.data.frame(rep(1, times=length(cand1)), names(cand1), unname(cand1))
+cand2 <- cbind.data.frame(rep(2, times=length(cand2)), names(cand2), unname(cand2))
+
+colnames(cand1) <- colnames(cand2) <- c("axis", "snp", "loading")
+
+cand <- rbind(cand1, cand2)
+cand$snp <- as.character(cand$snp)
+
+foo <- matrix(nrow=(ncand), ncol=2)
+colnames(foo) <- c("precip", "temp")
+
+for (i in 1:length(cand$snp)) {
+  if (i %% 500 == 0) {
+    print(paste("Current iteration (i):", i))
+  }
+  nam <- cand[i, 2]
+  snp.gen <- gen.imp[, ..nam]
+  foo[i, ] <- apply(pred[, -c(1, 4:8)], 2, function(x) cor(x, snp.gen))
+}
+
+cand <- cbind.data.frame(cand, foo)  
+head(cand)
+
+length(cand$snp[duplicated(cand$snp)])  # 0 duplicate detections
+
+foo <- cbind(cand$axis, duplicated(cand$snp)) 
+table(foo[foo[, 1]==1, 2]) # 0 duplicates on axis 1
+table(foo[foo[, 1]==2, 2]) # 0 duplicates on axis 2
+
+cand <- cand[!duplicated(cand$snp), ]
+length(cand$snp) # 29311 candidate loci
+
+for (i in 1:length(cand$snp)) {
+  if (i %% 500 == 0) {
+    print(paste("Current iteration (i):", i))
+  }
+  bar <- cand[i, ]
+  cand[i, 6] <- names(which.max(abs(bar[4:5]))) # gives the variable
+  cand[i, 7] <- max(abs(bar[4:5]))              # gives the correlation
+}
+
+colnames(cand)[6] <- "predictor"
+colnames(cand)[7] <- "correlation"
+
+table(cand$predictor)
+# precip   temp 
+#  10468  18843
+
+# Check loadings of temp & precip on each RDA axis
+intersetcor(breeding.rda)[, 1:2]
+
+# Save candidate loci
+write.csv(cand, "./output/RDA/AMRE/amre_breeding_rda_candidates.csv", row.names = F, quote=F)
+```
+
+### Run nonbreeding RDA
+
+```{r}
+# Read in pop allele frequencies
+gen.imp <- fread("./input/RDA/AMRE/amre_nonbreeding_pop_af.csv.gz")
+
+# Remove pop label
+gen.imp <- gen.imp %>% 
+  select(-pop)
+dim(gen.imp) # 13 12512336
+
+# Read in environmental info
+pred = read.csv("./input/RDA/AMRE/amre_nonbreeding_climate.csv", header=T)
+dim(pred) # 13 6
+
+# Check correlations and remove any MEMs with correlation > 0.7
+cor(pred[, -1], method="pearson")
+
+# Run RDA
+nonbreeding.rda <- rda(gen.imp ~ precip + temp + Condition(MEM1:MEM4), data=pred, scale=T)
+
+# Calculate summary statistics
+RsquareAdj(nonbreeding.rda)
+summary(eigenvals(nonbreeding.rda, model = "constrained"))
+vif.cca(nonbreeding.rda)
+```
+
+### Extract candidates on nonbreeding grounds
+
+```{r}
+load.rda <- scores(nonbreeding.rda, choices=c(1:2), display="species")  # Species scores for the first two constrained axes
+
+outliers <- function(x, z){
+  lims <- mean(x) + c(-1, 1) * z * sd(x)     # find loadings +/-z sd from mean loading     
+  x[x < lims[1] | x > lims[2]]               # locus names in these tails
+}
+
+cand1 <- outliers(load.rda[, 1], 3)
+length(cand1) # 1165 candidate loci on RDA axis 1
+cand2 <- outliers(load.rda[, 2], 3)
+length(cand2) # 1432 candidate loci on RDA axis 2
+
+ncand <- length(cand1) + length(cand2)
+ncand # 2597 candidate loci
+
+cand1 <- cbind.data.frame(rep(1, times=length(cand1)), names(cand1), unname(cand1))
+cand2 <- cbind.data.frame(rep(2, times=length(cand2)), names(cand2), unname(cand2))
+
+colnames(cand1) <- colnames(cand2) <- c("axis", "snp", "loading")
+
+cand <- rbind(cand1, cand2)
+cand$snp <- as.character(cand$snp)
+
+foo <- matrix(nrow=(ncand), ncol=2)
+colnames(foo) <- c("precip", "temp")
+
+for (i in 1:length(cand$snp)) {
+  if (i %% 500 == 0) {
+    print(paste("Current iteration (i):", i))
+  }
+  nam <- cand[i, 2]
+  snp.gen <- gen.imp[, ..nam]
+  foo[i, ] <- apply(pred[, -c(1, 4:8)], 2, function(x) cor(x, snp.gen))
+}
+
+cand <- cbind.data.frame(cand, foo)  
+head(cand)
+
+length(cand$snp[duplicated(cand$snp)])  # 0 duplicate detections
+
+foo <- cbind(cand$axis, duplicated(cand$snp)) 
+table(foo[foo[, 1]==1, 2]) # 0 duplicates on axis 1
+table(foo[foo[, 1]==2, 2]) # 0 duplicates on axis 2
+
+cand <- cand[!duplicated(cand$snp), ]
+length(cand$snp) # 2597 candidate loci
+
+for (i in 1:length(cand$snp)) {
+  if (i %% 500 == 0) {
+    print(paste("Current iteration (i):", i))
+  }
+  bar <- cand[i, ]
+  cand[i, 6] <- names(which.max(abs(bar[4:5]))) # gives the variable
+  cand[i, 7] <- max(abs(bar[4:5]))              # gives the correlation
+}
+
+colnames(cand)[6] <- "predictor"
+colnames(cand)[7] <- "correlation"
+
+table(cand$predictor)
+# precip   temp 
+#   1165   1432
+
+# Check loadings of temp & precip on each RDA axis
+intersetcor(nonbreeding.rda)[, 1:2]
+
+# Save candidate loci
+write.csv(cand, "./output/RDA/AMRE/amre_nonbreeding_rda_candidates.csv", row.names = F, quote=F)
+```
