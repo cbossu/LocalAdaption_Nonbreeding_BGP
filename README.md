@@ -28,4 +28,4 @@ Investigating local adaptation on the nonbreeding ground of 3 migratory species.
 3c.MigConnectivity_WIFL.Rmd : Code and data to replicate the MigConnectivity calculation of NMC for Willow flycatcher.
 
 # Data
-The genomic data including allele frequencies for breeding and nonbreeding populations can be found on dryad: XXX.
+The genomic data including allele frequencies for breeding and nonbreeding populations, breeding q-values, and sample/assignment summary information, can be found on dryad. doi:10.5061/dryad.jm63xsjm9
