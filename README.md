@@ -1,18 +1,23 @@
 # LocalAdaption_Nonbreeding_BGP
 This repository contains code to perform analyses described in the following paper:
 
-XXXX
+Migratory connectivity and ecological distinctiveness shape local adaptation to nonbreeding environments in migratory birds
+
+Sheela P. Turbek, Christen M. Bossu, Matthew DeSaix, Marina Rodriguez, Joan Ferrer Obiol, Christine Rayne, Eric C. Anderson, Nicholas Bayly, Eben H. Paxton, Ana M. González, Darshan Narang, Thomas B. Smith, Marius Somveille, Sergio Gómez Villaverde, Mary J. Whitfield, Kevin Winker, and Kristen C. Ruegg
 
 # Abstract
 
-Adaptation to local environmental conditions plays a key role in the generation of biodiversity. Nonetheless, quantifying local adaptation in migratory species, which experience heterogeneous environments throughout the year, remains challenging. Theory suggests that strong connections between breeding and nonbreeding populations should promote local adaptation to the nonbreeding environment; however, no study has tested this prediction. We leverage genomic data from three migratory songbirds to document a positive association between the strength of migratory connections and extent of local adaptation to climate on the nonbreeding grounds. Many climate-linked loci were located near genes detected in multiple comparisons, revealing candidate genes for climate adaptation in birds. This is one of the first studies to clearly demonstrate how seasonal migration can shape adaptive divergence during the nonbreeding season.
-
+Adaptation to local environmental conditions plays a key role in the generation of biodiversity. Nonetheless, quantifying local adaptation during the nonbreeding season remains challenging in migratory species, which experience heterogeneous environments throughout the year. Theory predicts that strong migratory connectivity should promote local adaptation to the nonbreeding environment via reduced gene flow between individuals overwintering in ecologically distinct regions; however, this prediction has not been tested. Using genomic data spanning the breeding and nonbreeding ranges of three migratory songbirds, we demonstrate that stronger migratory connectivity and more distinct nonbreeding climatic niches are linked to stronger signals of local adaptation during the nonbreeding period. Additionally, we identify numerous climate-associated loci located near genes repeatedly detected across comparisons, highlighting candidate genes for climate adaptation in birds. This study provides some of the first clear evidence that seasonal migration can shape adaptive divergence during the nonbreeding season.
 
 # Code
 Investigating local adaptation on the nonbreeding ground of 3 migratory species. This includes investigating species and node-specific network migratory connectivity (NMC_XY) or the spread of the breeding populations on the nonbreeding ground, the environmental distinctiveness of the populations on the nonbreeding ground and GEA analyses using RDA.
 
 
-1.RDA_of_pop_allele_freq.R : Code to replicate RDA analyses run for 3 species on breeding and nonbreeding ground using population allele frequencies estimated using a snakemake pipeline, loco-pipe.
+1a.RDA_AMRE.Rmd : Code to replicate RDA analyses for American redstart breeding and nonbreeding populations. Genomic data can be downloaded from dryad.
+
+1b.RDA_SWTH.Rmd : Code to replicate RDA analyses for Swainson's thrush breeding and nonbreeding populations. Genomic data can be downloaded from dryad.
+
+1c.RDA_WIFL.Rmd : Code to replicate RDA analyses for Willow flycatcher breeding and nonbreeding populations. Genomic data can be downloaded from dryad.
 
 2.Climate_distinctiveness_nonbreeding.R: Code to replicate the environmental distinctiveness analysis. Large rasters and shapefiles will need to be downloaded separately, however, url to their location are provide.
 
@@ -23,4 +28,4 @@ Investigating local adaptation on the nonbreeding ground of 3 migratory species.
 3c.MigConnectivity_WIFL.Rmd : Code and data to replicate the MigConnectivity calculation of NMC for Willow flycatcher.
 
 # Data
-The genotypic data including genotype probabilities for breeding and nonbreeding individuals and allele frequncies for breeding and nonbreeding populations can be found on dryad:
+The genomic data including allele frequencies for breeding and nonbreeding populations can be found on dryad: XXX.
