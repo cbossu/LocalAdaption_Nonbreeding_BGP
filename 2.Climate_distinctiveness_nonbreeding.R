@@ -12,6 +12,7 @@ library(pracma)
 library(ggnewscale)
 library(gridExtra)
 library(xlsx)
+library(overlapping)
 
 setwd("~/Rproj_git/LocalAdaption_Nonbreeding_BGP/")
 ## This is the metadata obtained from the previously conducted genoscape analyses. It has 5 columns: species, season, population, longitude, and latitude. Each row is an individual sample.
@@ -88,7 +89,7 @@ prec_NB <- mean(prec_NB)
 crs(temp_NB) <- crs(prec_NB) <- "+proj=longlat +datum=WGS84"
 
 
-##if you were to use CHELSA climate rasters
+## If you were to use CHELSA climate rasters:
 ## Extract climate for each ecoregion. Climate was downloaded from CHELSA climatologies 1981-2010 (freely available)- https://www.chelsa-climate.org/datasets/chelsa_climatologies
 winter <- c("01","02","12")
 Temp_files <- list.files("~/Dropbox/BGP/Network_modeling_Mignette/LocalAdapt/Manuscript_Revision/distinctiveness/chelsa/tmean")
@@ -101,7 +102,7 @@ prec_NB <- terra::rast(apply(prec_NB, 1, function(x) terra::rast(paste0("~/Dropb
 prec_NB <- mean(prec_NB)
 crs(temp_NB) <- crs(prec_NB) <- "+proj=longlat +datum=WGS84"
 
-# crop around the Americas
+# Crop around the Americas
 temp_NB <- terra::crop(temp_NB, newmap, mask=T)
 prec_NB <- terra::crop(prec_NB, newmap, mask=T)
 
@@ -113,7 +114,7 @@ prec_sd <- sd(as.vector(prec_NB$mean), na.rm=T)
 temp_zscore_NB <- (temp_NB - temp_mean) / temp_sd
 prec_zscore_NB <- (prec_NB - prec_mean) / prec_sd
 
-# extract climate for all ecoregions
+# Extract climate for all ecoregions
 ecoregions_climate_NB <- terra::extract(c(temp_zscore_NB, prec_zscore_NB), ecoregions, fun="mean", na.rm=T)
 colnames(ecoregions_climate_NB) <- c("ID", "temperature", "precipitation")
 
@@ -133,11 +134,14 @@ nicheDensityRaster <- function(seasonalNiche){
   return(niche.raster)
 }
 
-
-# Remove the Basin Rockies population of AMRE because of too few wintering samples
+## Remove the Basin Rockies population of AMRE because of too few wintering samples
 ecoregions_abund_presence[[1]] <- ecoregions_abund_presence[[1]][,-7]
 
-# Calculate pairwise niche overlap between wintering populations
+## Calculate pairwise niche overlap between wintering populations. 
+## If not weighted by local adaptation, climate_distinctiveness_1 and _2 are calculated two ways
+## A raster to point table is written out for each pop and each species, so it can be 
+## weighted by local adaptation (proportion of loci associated with precip or average temp)
+
 climate_distinctiveness_1 <- climate_distinctiveness_2 <- vector()
 population_names <- list()
 for(k in 1:length(species.names)){
@@ -181,8 +185,8 @@ for(k in 1:length(species.names)){
     # Calculate seasonal climate niches
     niche_climate_wintering[[j-2]] <- nicheDensityRaster(ecoregions_climate_resample_wintering2 %>% dplyr::select(temp, prec))
   }
-  #ecoregions_climate_resample_wintering %>% na.omit()
-  # Seeasonal climate overlap
+  # Ecoregions_climate_resample_wintering %>% na.omit()
+  # Seasonal climate overlap
   density_wintering <- rasterToPoints(raster::stack(niche_climate_wintering))
   
   distinctiveness_1 <- distinctiveness_2 <- vector()
@@ -195,7 +199,6 @@ for(k in 1:length(species.names)){
       distinctiveness_2 <- c(distinctiveness_2, 1 - length(which(density_wintering[,-c(1,2)][,i] > 0 & density_wintering[,-c(1,2)][,ii] > 0)) / length(which(density_wintering[,-c(1,2)][,i] > 0 | density_wintering[,-c(1,2)][,ii] > 0)))
     }
   }
-  #ecoregions_climate_resample_wintering <- rbind(ecoregions_climate_resample_wintering)
   climate_distinctiveness_1[k] <- mean(distinctiveness_1)
   climate_distinctiveness_2[k] <- mean(distinctiveness_2)
   print(k)
@@ -206,7 +209,6 @@ climate_distinctiveness_2
 
 all<-read.delim("output/distinctiveness/ecoregions_climate_resample_wintering.all.test4.inclNA.worldclim.oldcomp.txt",sep="\t") %>% filter(population!="population") %>% mutate(species=if_else(population=="EST"|population=="PNW_INW"|population=="SW","WIFL",if_else(population=="W_E_Boreal"|population=="PacificCoast"|population=="PNW","SWTH","AMRE"))) %>% na.omit()
 all %>% dplyr::group_by(species,population) %>% tally()
-
 
 
 ggplot() +
@@ -241,8 +243,7 @@ ggplot() +
 ggsave("output/distinctiveness/Precip_zscore.Histogram.Sampling.adjust2.pdf")
 
 
-#install.packages("overlapping")
-library(overlapping)
+
 swth_t1<-all %>% filter(species=="SWTH") %>% filter(population=="W_E_Boreal") %>% dplyr::select(temp) %>% as.data.frame()
 swth_t1n <- as.numeric(swth_t1$temp)
 swth_kde_t1 <- density(swth_t1n, kernel = "gaussian",bw=0.25)
@@ -257,13 +258,13 @@ swth_t3<-all %>% filter(species=="SWTH") %>% filter(population=="PacificCoast")%
 swth_t3n <- as.numeric(swth_t3$temp)
 swth_kde_t3 <- density(swth_t3n, kernel = "gaussian",bw=0.25)
 
-#Plot the smoothed gaussian kernel density of temp for SWTH
+# Plot the smoothed Gaussian kernel density of temp for SWTH
 pdf("output/distinctiveness/SWTH.temp_zscore.kde_gaussian.25bw.base_plot.worldclim.pdf")
 par(bty = "l")
 plot(swth_kde_t2, main = "SWTH Gaussian Kernel Density Estimates of Temp",
      xlab = "Temperature (°C)", ylab = "Density", col ="#009E73" , lwd = 2,type = "l")
 
-# 4. Add the other two densities
+# Add the other two population densities
 lines(swth_kde_t3, col = "#F0E442",lwd = 2)
 lines(swth_kde_t1, col = "#56B4E9",lwd = 2)
 polygon(swth_kde_t2, col = rgb(0,0.62,0.45, alpha = 0.6))
@@ -271,16 +272,14 @@ polygon(swth_kde_t3, col = rgb(0.94,0.89,0.26, alpha = 0.6))
 polygon(swth_kde_t1, col = rgb(0.34,0.71,0.91, alpha = 0.6))
 dev.off()
 
-##Use code below to get rbg color values for plot above
+## Use code below to get rbg color values for plot above
 rgb_values <- col2rgb("#F0E442")
-# Print the RGB values
-print(rgb_values) #then divide by 255
+## Print the RGB values
+print(rgb_values) #then divide by 255 (to be used in plot above)
 
-#create list of numerical distribution to estimate gaussian kernel dist overlap (no smoothing)
-
+## Create list of numerical distribution to estimate Gaussian kernel dist overlap (no smoothing)
 x <- list(W_E_Boreal = swth_t1n, PNW = swth_t2n, PacCoast = swth_t3n)
 overlap_resultsT <- overlap(x,plot = TRUE)
-
 #overlap with the smoothing
 overlap_resultsTs <- ovmult(x,bw=0.25)
 ggsave("output/distinctiveness/SWTH.overlap.plot.pdf")
@@ -307,27 +306,25 @@ swth_p3n <- as.numeric(swth_p3$prec)
 swth_kde_p3 <- density(swth_p3n, kernel = "gaussian",bw=0.25)
 range(swth_p3$prec)
 
-#This is overlap, but with gaussian distribution, but not smoothing (so no)
+#This is overlap of the Gaussian distributions, but not smoothing (don't use)
 p <- list(W_E_Boreal = swth_p1n, PNW = swth_p2n, PacCoast = swth_p3n)
 overlap_resultsP <- overlap(p,kernel="gaussian",plot = TRUE)
-#smoothing=yes
+# With smoothing=yes
 overlap_resultsPs <- ovmult(p,kernel="gaussian",bw=0.25)
 
 ggsave("output/distinctiveness/SWTH.precip.overlap.plot.no_smoothing.pdf")
 
 SWTH_distinctP<- 1-overlap_resultsP$OV
 SWTH_distinctPs<- 1-overlap_resultsPs$OV
-SWTH_distinctP
-SWTH_distinctPs
 
-print(paste("SWTH distinct area for precip, bw 0.25:", SWTH_distinctPs))
+print(paste("SWTH distinct climate area for precip, bw 0.25:", SWTH_distinctPs))
 
 pdf("output/distinctiveness/SWTH.precip_zscore.kde_gaussian.25bw.base_plot.worldclim.NArm_WB.pdf")
 par(bty = "l")
 plot(swth_kde_p3, main = "SWTH Gaussian Kernel Density Estimates of Precip",
      xlab = "Precipitation (mm)", ylab = "Density", col ="#F0E442" , lwd = 2,type = "l")
 
-# 4. Add the other two densities
+# Add the other two population densities
 lines(swth_kde_p2, col = "#009E73",lwd = 2)
 lines(swth_kde_p1, col = "#56B4E9",lwd = 2)
 polygon(swth_kde_p3, col = rgb(0.94,0.89,0.26, alpha = 0.6))
@@ -335,8 +332,7 @@ polygon(swth_kde_p2, col = rgb(0,0.62,0.45, alpha = 0.6))
 polygon(swth_kde_p1, col = rgb(0.34,0.71,0.91, alpha = 0.6))
 dev.off()
 
-
-##WIFL
+#### WIFL
 wifl_t1<-all %>% filter(species=="WIFL") %>% filter(population=="PNW_INW") %>% dplyr::select(temp) %>% as.data.frame()
 wifl_t1n <- as.numeric(wifl_t1$temp)
 wifl_kde_t1 <- density(wifl_t1n, kernel = "gaussian",bw=0.25)
@@ -358,7 +354,7 @@ par(bty = "l")
 plot(wifl_kde_t2, main = "Three Gaussian Kernel Density Estimates of Temp",
      xlab = "Temperature (°C)", ylab = "Density", col ="#56B4E9" , lwd = 2,type = "l") #EST #blue 
 
-# 4. Add the other two densities
+## Add the other two population densities
 lines(wifl_kde_t1, col = "#009E73",lwd = 2) #PNW-INW #009E73 #green
 lines(wifl_kde_t3, col = "#E69F00",lwd = 2) #SW orange
 polygon(wifl_kde_t2, col = rgb(0.34,0.71,0.91, alpha = 0.6))
@@ -366,10 +362,10 @@ polygon(wifl_kde_t1, col = rgb(0,0.62,0.45, alpha = 0.6))
 polygon(wifl_kde_t3, col = rgb(0.90,0.62,0, alpha = 0.6))
 dev.off()
 
-#Overlap with gaussian kernel density (so ok), no smoothing
+## Overlap with Gaussian kernel density (so ok), without smoothing
 x <- list(PNW_INW = wifl_t1n, EST= wifl_t2n, SW = wifl_t3n)
 Woverlap_resultsT <- overlap(x,kernel = "gaussian", plot = TRUE)
-#with smoothing
+# With smoothing- yes
 Woverlap_resultsTs <- ovmult(x,kernel="gaussian",bw=0.25)
 
 ggsave("output/distinctiveness/WIFL.temp_zscore.overlap.plot.pdf")
@@ -394,9 +390,11 @@ wifl_p3n <- as.numeric(wifl_p3$prec)
 wifl_kde_p3 <- density(wifl_p3n, kernel = "gaussian",bw=0.25)
 range(swth_p3$prec)
 
-#Yes gaussian kernel distribution (so yes- this is guassian kernel density)
+## Gaussian kernel distribution overlap 
 p <- list(PNW_INW = wifl_p1n, EST = wifl_p2n, SW = wifl_p3n)
+## Without smoothing
 Woverlap_resultsP <- overlap(p,kernel="gaussian",plot = TRUE)
+## With smoothing
 Woverlap_resultsPs <- ovmult(p,kernel="gaussian",bw=0.25)
 
 ggsave("output/distinctiveness/WIFL.precip_zscore.overlap.plot.pdf")
@@ -404,7 +402,6 @@ ggsave("output/distinctiveness/WIFL.precip_zscore.overlap.plot.pdf")
 WIFL_distinctP<- 1-Woverlap_resultsP$OV
 WIFL_distinctPs<- 1-Woverlap_resultsPs$OV
 
-print(paste("WIFL distinct area no smooth:", WIFL_distinctP))
 print(paste("WIFL distinct area with smoothing:", WIFL_distinctPs)) #use this
 
 pdf("output/distinctiveness/WIFL.precip_zscore.kde_gaussian.25bw.base_plot.worldclim.pdf")
@@ -412,7 +409,7 @@ par(bty = "l")
 plot(wifl_kde_p3, main = "Three Gaussian Kernel Density Estimates of Precip",
      xlab = "Precipitation (mm)", ylab = "Density", col ="#E69F00" , lwd = 2,type = "l") #SW orange
 
-# 4. Add the other two densities
+## Add the other two population densities
 lines(wifl_kde_p1, col = "#009E73",lwd = 2) #PNW-INW #009E73 #green
 lines(wifl_kde_p2, col = "#56B4E9",lwd = 2) #EST #blue
 polygon(wifl_kde_p3, col = rgb(0.90,0.62,0, alpha = 0.6))
@@ -420,13 +417,13 @@ polygon(wifl_kde_p1, col = rgb(0,0.62,0.45, alpha = 0.6))
 polygon(wifl_kde_p2, col = rgb(0.34,0.71,0.91, alpha = 0.6))
 dev.off()
 
-##Use code below to get rbg color values for plot above
+## Use code below to get rbg color values for plot above
 rgb_values <- col2rgb("#E69F00")
-# Print the RGB values
+### Print the RGB values
 print(rgb_values) #then divide by 255
 
 
-##AMRE
+#### AMRE
 amre_t1<-all %>% filter(species=="AMRE") %>% filter(population=="MP") %>% dplyr::select(temp) %>% as.data.frame()
 amre_t1n <- as.numeric(amre_t1$temp)
 amre_kde_t1 <- density(amre_t1n, kernel = "gaussian",bw=0.25)
@@ -447,18 +444,14 @@ amre_t4n <- as.numeric(amre_t4$temp)
 amre_kde_t4 <- density(amre_t4n, kernel = "gaussian",bw=0.25)
 range(amre_t4$temp)
 
- #"NT" = "#56B4E9", 2
- #"WB" = "#009E73", 4
- #"MP" = "#000066", 1
- #"ST" = "#E69F00",  3 # Assign custom colors
-  
-##Plot in base R (on 1 plot)
+
+## Plot in base R (on 1 plot)
 pdf("output/distinctiveness/AMRE.temp_zscore.kde_gaussian.25bw.base_plot.worldclim.pdf")
 par(bty = "l")
 plot(amre_kde_t2, main = "Four Gaussian Kernel Density Estimates of Temp",
      xlab = "Temperature (°C)", ylab = "Density", col ="#56B4E9" , lwd = 2,type = "l") #NT #blue ok
 
-# 4. Add the other two densities
+# Add the other three population densities
 lines(amre_kde_t1, col = "#000066",lwd = 2) #MP #000066 #navy
 lines(amre_kde_t4, col = "#009E73",lwd = 2) #WB 009E73 #green
 lines(amre_kde_t3, col = "#E69F00",lwd = 2) #ST orange
@@ -468,14 +461,16 @@ polygon(amre_kde_t4, col = rgb(0,0.62,0.45, alpha = 0.6))
 polygon(amre_kde_t3, col = rgb(0.90,0.62,0, alpha = 0.6))
 dev.off()
 
-##Use code below to get rbg color values for plot above
+## Use code below to get rbg color values for plot above
 rgb_values <- col2rgb("#009E73")
-# Print the RGB values
+### Print the RGB values
 print(rgb_values) #then divide by 255
 
+## Gaussian kernel distribution overlap 
 atn <- list(MP = amre_t1n, NT= amre_t2n, ST = amre_t3n,WB = amre_t4n)
-
+## Without smoothing
 Aoverlap_resultsT <- overlap(atn,kernel="gaussian",plot = TRUE)
+## With smoothing
 Aoverlap_resultsTs <- ovmult(atn,kernel="gaussian",bw=0.25)
 
 ggsave("output/distinctiveness/AMRE.temp_zscore.overlap.plot.pdf")
@@ -483,10 +478,9 @@ ggsave("output/distinctiveness/AMRE.temp_zscore.overlap.plot.pdf")
 amre_distinctT<- 1-Aoverlap_resultsT$OV
 amre_distinctTs<- 1-Aoverlap_resultsTs$OV
 
-print(paste("AMRE distinct area no smooth:", amre_distinctT))
 print(paste("AMRE distinct area with smoothing:", amre_distinctTs))
 
-#Precip for AMRE
+## Precip for AMRE
 amre_p1<-all %>% filter(species=="AMRE") %>% filter(population=="MP") %>% dplyr::select(prec) %>% as.data.frame()
 amre_p1n <- as.numeric(amre_p1$prec)
 amre_kde_p1 <- density(amre_p1n, kernel = "gaussian",bw=0.25)
@@ -516,16 +510,14 @@ ggsave("output/distinctiveness/AMRE.precip_zscore.overlap.25nbin.plot.pdf")
 amre_distinctP<- 1-Aoverlap_resultsP$OV
 amre_distinctPs<- 1-Aoverlap_resultsPs$OV
 
-print(paste("AMRE distinct area no smooth:", amre_distinctP))
 print(paste("AMRE distinct area with smoothing:", amre_distinctPs))
-
 
 pdf("output/distinctiveness/AMRE.precip_zscore.kde_gaussian.25bw.base_plot.worldclim.pdf")
 par(bty = "l")
 plot(amre_kde_p4, main = "Four Gaussian Kernel Density Estimates of Precip",
      xlab = "Precipitation (mm)", ylab = "Density", col ="#009E73" , lwd = 2,type = "l") #NT #blue ok
 
-# 4. Add the other two densities
+## Add the other three population densities
 lines(amre_kde_p1, col = "#000066",lwd = 2) #MP #000066 #navy
 lines(amre_kde_p2, col = "#56B4E9",lwd = 2) #WB 009E73 #green
 lines(amre_kde_p3, col = "#E69F00",lwd = 2) #ST orange
