@@ -155,12 +155,13 @@ brloo.summary9 <- read_delim("output/WGSassign/AMRE/REF125b.angsd.thin_10_ai.bea
 
 brloo.summary10 <- read_delim("output/WGSassign/AMRE/REF125b.angsd.thin_10_aj.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-rbind(brloo.summary1,brloo.summary2,brloo.summary3,brloo.summary4,brloo.summary5,brloo.summary6,brloo.summary7,brloo.summary8,brloo.summary9,brloo.summary10) %>% group_by(Sample,repunit,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
-  #left_join(ne_ind_order_sub) %>% 
+rbind(brloo.summary1,brloo.summary2,brloo.summary3,brloo.summary4,brloo.summary5,brloo.summary6,brloo.summary7,brloo.summary8,brloo.summary9,brloo.summary10) %>% group_by(Sample,repunit,AssignedPop) %>% 
+  summarise(Consistency=n()/10) %>% 
+  arrange(Sample,-Consistency) %>% 
   pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% 
   replace(is.na(.), 0) %>% 
+  mutate(AssignedPop=if_else(ST>0.79,"ST",if_else(WB>0.79,"WB",if_else(NT>0.79,"NT",if_else(BR>0.79,"BR",if_else(MP>0.79,"MP","uncertain")))))) %>% 
   left_join(meta) %>% 
-  arrange(AssignmentOld) %>% 
   write.table("output/WGSassign/AMRE/AMRE.REF125b.final.thin_10.consistent.wide.angsd_loco-pipe.txt",row.names=F,quote=F,sep="\t")
 ```
 
@@ -187,8 +188,9 @@ assign.summary9 <- read_delim("output/WGSassign/AMRE/winter148.combined_new.subs
 
 assign.summary10 <- read_delim("output/WGSassign/AMRE/winter148.combined_new.subsetted.REF125b.poplik.thin_10.aj.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-rbind(assign.summary1,assign.summary2,assign.summary3,assign.summary4,assign.summary5,assign.summary6,assign.summary7,assign.summary8,assign.summary9,assign.summary10) %>% group_by(Sample,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
-  #filter(Consistency>0.79) %>% 
+rbind(assign.summary1,assign.summary2,assign.summary3,assign.summary4,assign.summary5,assign.summary6,assign.summary7,assign.summary8,assign.summary9,assign.summary10) %>% group_by(Sample,AssignedPop) %>% 
+  summarise(Consistency=n()/10) %>% 
+  arrange(Sample,-Consistency) %>% 
   pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% replace(is.na(.), 0) %>% 
   mutate(AssignedPop=if_else(ST>0.79,"ST",if_else(WB>0.79,"WB",if_else(NT>0.79,"NT",if_else(BR>0.79,"BR",if_else(MP>0.79,"MP","uncertain")))))) %>% 
   left_join(meta) %>% 
@@ -219,9 +221,11 @@ nrbr.summary9 <- read_delim("output/WGSassign/AMRE/NONREF44b.combined_new.subset
 
 nrbr.summary10 <- read_delim("output/WGSassign/AMRE/NONREF44b.combined_new.subsetted.REF125b.poplik.thin_10.aj.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-rbind(nrbr.summary1,nrbr.summary2,nrbr.summary3,nrbr.summary4,nrbr.summary5,nrbr.summary6,nrbr.summary7,nrbr.summary8,nrbr.summary9,nrbr.summary10) %>% group_by(Sample,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
-  #left_join(meta) %>% 
+rbind(nrbr.summary1,nrbr.summary2,nrbr.summary3,nrbr.summary4,nrbr.summary5,nrbr.summary6,nrbr.summary7,nrbr.summary8,nrbr.summary9,nrbr.summary10) %>% group_by(Sample,AssignedPop) %>%
+  summarise(Consistency=n()/10) %>% 
+  arrange(Sample,-Consistency) %>% 
    pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% replace(is.na(.), 0) %>%
   mutate(AssignedPop=if_else(ST>0.79,"ST",if_else(WB>0.79,"WB",if_else(NT>0.79,"NT",if_else(BR>0.79,"BR","uncertain"))))) %>% 
-  left_join(meta) %>% write.table("output/WGSassign/AMRE/AMRE.NONREF44b.thin_10_all.assigned_pop.REF125b.consistent.wide.loco-pipe.txt",row.names=F,quote=F,sep="\t")
+  left_join(meta) %>% 
+  write.table("output/WGSassign/AMRE/AMRE.NONREF44b.thin_10_all.assigned_pop.REF125b.consistent.wide.loco-pipe.txt",row.names=F,quote=F,sep="\t")
 ```

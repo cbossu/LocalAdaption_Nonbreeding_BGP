@@ -112,13 +112,13 @@ ne_ind_order_sub<-read_delim("input/WGSassign/SWTH/Nonref_breed.ind.colnum.txt",
 ## Create function
 format_wgsout <- function(f) {
   breeding.likelihood <- read_delim(f, delim=" ",col_names = F)
-  names(breeding.likelihood)<-c("BR", "MP", "NT", "ST","WB")
+  names(breeding.likelihood)<-c("PNW", "PacificCoast", "W_E_Boreal")
 
   # Process output
-  ne_ind_order_sub<-read_delim("input/WGSassign/SWTH/AMRE_wintering_sample_table.tsv",delim="\t",col_names = T) %>% rename(Sample=sample_name) %>% dplyr::select(Sample)
+  ne_ind_order_sub<-read_delim("input/WGSassign/SWTH/nonbreed_bamlist.ind",delim="\t",col_names = F) %>% rename(Sample=X1) %>% dplyr::select(Sample)
 
 loo.summary <- cbind(breeding.likelihood,ne_ind_order_sub) %>%
-  pivot_longer(cols = BR:WB,
+  pivot_longer(cols = PNW:W_E_Boreal,
                names_to = "AssignedPop",
                values_to = "AssignedLike") %>%
   group_by(Sample) %>%
@@ -135,87 +135,98 @@ lapply(files, format_wgsout)
 ```{r}
 ne_ind_order_sub<-read_delim("input/WGSassign/SWTH/REF35.ind.colnum.txt",delim="\t",col_names = T) 
 
-brloo.summary1 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.aa.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>%
+brloo.summary1 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.aa.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>%
   dplyr::select(Sample,repunit,AssignedPop)
 
-brloo.summary2 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ab.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+brloo.summary2 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ab.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-brloo.summary3 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ac.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+brloo.summary3 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ac.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-brloo.summary4 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ad.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+brloo.summary4 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ad.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-brloo.summary5 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ae.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+brloo.summary5 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ae.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-brloo.summary6 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.af.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+brloo.summary6 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.af.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-brloo.summary7 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ag.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+brloo.summary7 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ag.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-brloo.summary8 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ah.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+brloo.summary8 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ah.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-brloo.summary9 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ai.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+brloo.summary9 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.ai.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-brloo.summary10 <- read_delim("input/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.aj.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+brloo.summary10 <- read_delim("output/WGSassign/SWTH/REF35.breed.combined.subsetted.beagle.aj.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
 
-rbind(brloo.summary1,brloo.summary2,brloo.summary3,brloo.summary4,brloo.summary5,brloo.summary6,brloo.summary7,brloo.summary8,brloo.summary9,brloo.summary10) %>% group_by(Sample,repunit,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
-  #filter(Consistency>0.79) %>% 
+rbind(brloo.summary1,brloo.summary2,brloo.summary3,brloo.summary4,brloo.summary5,brloo.summary6,brloo.summary7,brloo.summary8,brloo.summary9,brloo.summary10) %>% group_by(Sample,repunit,AssignedPop) %>% summarise(Consistency=n()/10) %>%
+  arrange(Sample,-Consistency) %>% 
   left_join(ne_ind_order_sub) %>% 
-  pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% replace(is.na(.), 0) %>% write.table("output/WGSassign/SWTH/SWTH.REF35.thin_10.consistent.wide.angsd_loco-pipe.txt",row.names=F,quote=F,sep="\t")
+  pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% 
+  replace(is.na(.), 0) %>%
+  mutate(AssignedPop=if_else(PNW>0.79,"PNW",if_else(W_E_Boreal>0.79,"W_E_Boreal",if_else(PacificCoast>0.79,"PacificCoast","uncertain")))) %>% 
+  write.table("output/WGSassign/SWTH/SWTH.REF35.thin_10.consistent.wide.angsd_loco-pipe.txt",row.names=F,quote=F,sep="\t")
 ```
 
 #thin every 10th snp starting from 1,2..10 for winter assignment
 ```{r}
-assign.summary1 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_aa.pop_like.txt.WGS_summary.txt",delim="\t") %>%
+assign.summary1 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_aa.pop_like.txt.WGS_summary.txt",delim="\t") %>%
   dplyr::select(Sample,AssignedPop)
 
-assign.summary2 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ab.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+assign.summary2 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ab.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-assign.summary3 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ac.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+assign.summary3 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ac.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-assign.summary4 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ad.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+assign.summary4 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ad.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-assign.summary5 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ae.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+assign.summary5 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ae.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-assign.summary6 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_af.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+assign.summary6 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_af.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-assign.summary7 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ag.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+assign.summary7 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ag.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-assign.summary8 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ah.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+assign.summary8 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ah.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-assign.summary9 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ai.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+assign.summary9 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_ai.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-assign.summary10 <- read_delim("input/WGSassign/SWTH/swth.133.subsetted.beagle.thin_aj.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+assign.summary10 <- read_delim("output/WGSassign/SWTH/swth.133.subsetted.beagle.thin_aj.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-rbind(assign.summary1,assign.summary2,assign.summary3,assign.summary4,assign.summary5,assign.summary6,assign.summary7,assign.summary8,assign.summary9,assign.summary10) %>% group_by(Sample,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
-  #filter(Consistency>0.79) %>% 
-  pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% replace(is.na(.), 0) %>%  write.table("output/WGSassign/SWTH/swth.ind133.thin_10_all.assigned_pop.REF35.wide_consistent.angsd.loco-pipe.txt",row.names=F,quote=F,sep="\t")
+rbind(assign.summary1,assign.summary2,assign.summary3,assign.summary4,assign.summary5,assign.summary6,assign.summary7,assign.summary8,assign.summary9,assign.summary10) %>% group_by(Sample,AssignedPop) %>% 
+  summarise(Consistency=n()/10) %>%
+  arrange(Sample,-Consistency) %>% 
+  pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% 
+  replace(is.na(.), 0) %>% 
+  mutate(AssignedPop=if_else(PNW>0.79,"PNW",if_else(W_E_Boreal>0.79,"W_E_Boreal",if_else(PacificCoast>0.79,"PacificCoast","uncertain")))) %>% 
+  write.table("output/WGSassign/SWTH/swth.ind133.thin_10_all.assigned_pop.REF35.wide_consistent.angsd.loco-pipe.txt",row.names=F,quote=F,sep="\t")
 ```
 
 
 # Nonreference breeding individual assignment with thinned beagle
 ```{r}
-nrbr.summary1 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_aa.pop_like.txt.WGS_summary.txt",delim="\t") %>%
+nrbr.summary1 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_aa.pop_like.txt.WGS_summary.txt",delim="\t") %>%
   dplyr::select(Sample,AssignedPop)
 
-nrbr.summary2 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ab.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+nrbr.summary2 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ab.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-nrbr.summary3 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ac.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+nrbr.summary3 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ac.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-nrbr.summary4 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ad.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+nrbr.summary4 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ad.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-nrbr.summary5 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ae.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+nrbr.summary5 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ae.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-nrbr.summary6 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_af.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+nrbr.summary6 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_af.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-nrbr.summary7 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ag.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+nrbr.summary7 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ag.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-nrbr.summary8 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ah.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+nrbr.summary8 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ah.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-nrbr.summary9 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ai.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+nrbr.summary9 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_ai.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
-nrbr.summary10 <- read_delim("input/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_aj.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+nrbr.summary10 <- read_delim("output/WGSassign/SWTH/nonref.breed.subsetted.beagle.thin_aj.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
 
 
-rbind(nrbr.summary1,nrbr.summary2,nrbr.summary3,nrbr.summary4,nrbr.summary5,nrbr.summary6,nrbr.summary7,nrbr.summary8,nrbr.summary9,nrbr.summary10) %>% group_by(Sample,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
+rbind(nrbr.summary1,nrbr.summary2,nrbr.summary3,nrbr.summary4,nrbr.summary5,nrbr.summary6,nrbr.summary7,nrbr.summary8,nrbr.summary9,nrbr.summary10) %>% group_by(Sample,AssignedPop) %>% summarise(Consistency=n()/10) %>% 
+  arrange(Sample,-Consistency) %>% 
   #left_join(meta) %>% 
-   pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% replace(is.na(.), 0) %>% write.table("output/WGSassign/SWTH/SWTH.nonref.thin_10_all.assigned_pop.REF35.consistent.wide.loco-pipe.txt",row.names=F,quote=F,sep="\t")
+   pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% 
+  replace(is.na(.), 0) %>%
+  mutate(AssignedPop=if_else(W_E_Boreal>0.79,"W_E_Boreal",if_else(PacificCoast>0.79,"PacificCoast","uncertain"))) %>% 
+  write.table("output/WGSassign/SWTH/SWTH.nonref.thin_10_all.assigned_pop.REF35.consistent.wide.loco-pipe.txt",row.names=F,quote=F,sep="\t")
 ```

@@ -1,0 +1,346 @@
+Sample,Site,Location,State,Country,Lat,Long,Date,Stage,Assignment,Consistency,Dataset
+1590-97233,AZ1,camp_verde,Arizona,USA,34.5583,-111.842,6/23/97,Breeding,SW,1,Individual
+1590-97234,AZ1,camp_verde,Arizona,USA,34.5583,-111.842,6/23/97,Breeding,SW,1,Individual
+1590-97368,AZ1,camp_verde,Arizona,USA,34.5583,-111.842,7/8/97,Breeding,SW,1,Individual
+1710-46386,AZ1,camp_verde,Arizona,USA,34.5583,-111.842,6/25/00,Breeding,SW,1,LOO
+1740-91532,AZ1,camp_verde,Arizona,USA,34.5583,-111.842,7/6/96,Breeding,SW,1,Individual
+1740-91684,AZ1,camp_verde,Arizona,USA,34.5583,-111.842,6/28/98,Breeding,SW,1,Individual
+1590-97342,AZ2,co_river,Arizona,USA,36.0503,-114.733,6/17/97,Breeding,SW,1,Individual
+1590-97343,AZ2,co_river,Arizona,USA,36.0503,-114.733,6/18/97,Breeding,SW,1,LOO
+1590-97344,AZ2,co_river,Arizona,USA,36.0503,-114.733,6/18/97,Breeding,SW,1,Individual
+1710-20638,AZ2,co_river,Arizona,USA,36.0503,-114.733,NA,Breeding,SW,1,Individual
+2140-66628,AZ2,co_river,Arizona,USA,36.0503,-114.733,7/8/98,Breeding,SW,1,Individual
+2140-66640,AZ2,co_river,Arizona,USA,36.0503,-114.733,8/3/98,Breeding,SW,1,Individual
+1740-51668,AZ3,east_pima,Arizona,USA,32.8283,-109.705,5/30/02,Breeding,SW,1,Individual
+1740-51669,AZ3,east_pima,Arizona,USA,32.8283,-109.705,5/30/02,Breeding,SW,1,Individual
+1740-51674,AZ3,east_pima,Arizona,USA,32.8283,-109.705,5/30/02,Breeding,SW,1,LOO
+1740-51677,AZ3,east_pima,Arizona,USA,32.8283,-109.705,5/30/02,Breeding,SW,1,Individual
+1740-51678,AZ3,east_pima,Arizona,USA,32.8283,-109.705,5/30/02,Breeding,SW,1,LOO
+1740-51681,AZ3,east_pima,Arizona,USA,32.8283,-109.705,5/30/02,Breeding,SW,1,LOO
+1590-97252,AZ4,roosevelt_lake,Arizona,USA,33.767,-111.242,6/30/97,Breeding,SW,1,Individual
+1710-20576,AZ4,roosevelt_lake,Arizona,USA,33.767,-111.242,7/7/99,Breeding,SW,1,LOO
+1740-51747,AZ4,roosevelt_lake,Arizona,USA,33.767,-111.242,7/16/02,Breeding,SW,1,Individual
+1740-51748,AZ4,roosevelt_lake,Arizona,USA,33.767,-111.242,6/30/02,Breeding,SW,1,LOO
+1740-51780,AZ4,roosevelt_lake,Arizona,USA,33.767,-111.242,6/30/02,Breeding,SW,1,LOO
+1740-51802,AZ4,roosevelt_lake,Arizona,USA,33.767,-111.242,6/26/02,Breeding,SW,1,Individual
+1710-20383,AZ5,san_pedro,Arizona,USA,32.975,-110.767,7/7/99,Breeding,SW,1,Individual
+1710-20482,AZ5,san_pedro,Arizona,USA,32.975,-110.767,6/28/99,Breeding,SW,1,LOO
+1710-20484,AZ5,san_pedro,Arizona,USA,32.975,-110.767,6/28/99,Breeding,SW,1,LOO
+1710-20491,AZ5,san_pedro,Arizona,USA,32.975,-110.767,7/4/99,Breeding,SW,1,LOO
+1710-20641,AZ5,san_carlos,Arizona,USA,33.1967,-110.439,6/20/00,Breeding,SW,1,LOO
+1710-20643,AZ5,san_carlos,Arizona,USA,33.1967,-110.439,6/20/00,Breeding,SW,1,Individual
+1710-20645,AZ5,san_carlos,Arizona,USA,33.1967,-110.439,6/29/00,Breeding,SW,1,LOO
+1710-20661,AZ5,san_carlos,Arizona,USA,33.1967,-110.439,6/29/00,Breeding,SW,1,LOO
+1710-46394,AZ5,san_carlos,Arizona,USA,33.1967,-110.439,6/20/00,Breeding,SW,1,Individual
+1710-46397,AZ5,san_carlos,Arizona,USA,33.1967,-110.439,6/21/00,Breeding,SW,1,Individual
+1740-91635,AZ5,san_pedro,Arizona,USA,32.975,-110.767,7/12/96,Breeding,SW,1,Individual
+1740-91903,AZ5,san_pedro,Arizona,USA,32.975,-110.767,5/30/97,Breeding,SW,1,Individual
+1590-97232,AZ6,white_mts,Arizona,USA,34,-109,6/17/97,Breeding,PNW_INW,1,Individual
+1590-97376,AZ6,white_mts,Arizona,USA,34,-109,7/14/97,Breeding,PNW_INW,1,Individual
+1710-20631,AZ6,white_mts,Arizona,USA,34,-109,7/14/98,Breeding,PNW_INW,1,Individual
+1710-20632,AZ6,white_mts,Arizona,USA,34,-109,7/14/98,Breeding,PNW_INW,1,Individual
+1710-20633,AZ6,white_mts,Arizona,USA,34,-109,7/14/98,Breeding,PNW_INW,1,Individual
+1740-91633,AZ6,white_mts,Arizona,USA,34,-109,7/11/96,Breeding,PNW_INW,1,Individual
+1710-20367,CA1,bigelow,California,USA,41.2583,-121.883,7/15/98,Breeding,PNW_INW,1,Individual
+1710-20369,CA1,bigelow,California,USA,41.2583,-121.883,7/15/98,Breeding,PNW_INW,1,Individual
+1710-46313,CA1,bigelow,California,USA,41.2583,-121.883,7/15/98,Breeding,PNW_INW,1,Individual
+1710-46315,CA1,bigelow,California,USA,41.2583,-121.883,7/15/98,Breeding,PNW_INW,1,Individual
+1710-46332,CA2,owens_river,California,USA,37.4083,-118.479,7/9/99,Breeding,PNW_INW,1,Individual
+1710-46334,CA2,owens_river,California,USA,37.4083,-118.479,7/10/99,Breeding,PNW_INW,1,Individual
+1710-46341,CA2,owens_river,California,USA,37.4083,-118.479,7/9/99,Breeding,PNW_INW,1,Individual
+1710-46343,CA2,owens_river,California,USA,37.4083,-118.479,7/10/99,Breeding,PNW_INW,1,Individual
+2170-11718,CA3,kern,California,USA,35.6594,-118.464,7/7/09,Breeding,PNW_INW,1,Individual
+2170-11726,CA3,kern,California,USA,35.6594,-118.464,7/13/09,Breeding,PNW_INW,1,Individual
+2170-11753,CA3,kern,California,USA,35.6594,-118.464,7/5/10,Breeding,PNW_INW,1,Individual
+2290-20010,CA3,kern,California,USA,35.6594,-118.464,7/14/04,Breeding,SD,0.9,Individual
+2290-20025,CA3,kern,California,USA,35.6594,-118.464,7/2/05,Breeding,PNW_INW,1,Individual
+2290-20031,CA3,kern,California,USA,35.6594,-118.464,7/15/05,Breeding,PNW_INW,1,Individual
+1590-97330,CA4,santa_ynez,California,USA,34.6167,-120.183,6/12/97,Breeding,SD,0.9,Individual
+1590-97331,CA4,santa_ynez,California,USA,34.6167,-120.183,6/12/97,Breeding,SD,1,Individual
+1590-97333,CA4,santa_ynez,California,USA,34.6167,-120.183,6/12/97,Breeding,SD,1,Individual
+1590-97334,CA4,santa_ynez,California,USA,34.6167,-120.183,6/14/97,Breeding,SD,0.9,Individual
+1590-97335,CA4,santa_ynez,California,USA,34.6167,-120.183,6/14/97,Breeding,SD,0.6,Individual
+2540-83429,CA5,san_diego,California,USA,33.27645,-117.375,6/24/11,Breeding,SD,0.8,Individual
+2640-79001,CA5,san_diego,California,USA,33.24833,-116.785,6/18/10,Breeding,SD,1,LOO
+2640-79003,CA5,san_diego,California,USA,33.24833,-116.785,6/18/10,Breeding,SD,1,LOO
+2640-87052,CA5,san_diego,California,USA,33.24833,-116.785,8/6/10,Breeding,SD,1,LOO
+2640-87053,CA5,san_diego,California,USA,33.24833,-116.785,8/6/10,Breeding,SD,1,LOO
+2540-83432,CA5,san_diego,California,USA,33.27645,-117.375,6/25/10,Breeding,SD,1,LOO
+2540-83436,CA5,san_diego,California,USA,33.27645,-117.375,7/6/10,Breeding,SD,1,LOO
+2540-83437,CA5,san_diego,California,USA,33.27645,-117.375,7/6/10,Breeding,SD,1,LOO
+2540-99997,CA5,san_diego,California,USA,33.27645,-117.375,7/6/10,Breeding,SD,1,LOO
+2580-61405,CA5,san_diego,California,USA,33.27645,-117.375,6/18/10,Breeding,SD,1,LOO
+2580-61406,CA5,san_diego,California,USA,33.27645,-117.375,6/18/10,Breeding,SW,0.333333333,LOO
+2580-61408,CA5,san_diego,California,USA,33.27645,-117.375,6/18/10,Breeding,SD,1,LOO
+2640-78801,CA5,san_diego,California,USA,33.24833,-116.785,6/18/10,Breeding,SD,1,LOO
+2640-78803,CA5,san_diego,California,USA,33.24833,-116.785,6/18/10,Breeding,SD,1,LOO
+2640-78804,CA5,san_diego,California,USA,33.24833,-116.785,6/18/10,Breeding,SD,1,LOO
+1740-91828,CA6,perazzo,California,USA,39.4864,-120.35,7/17/98,Breeding,PNW_INW,1,Individual
+1740-91829,CA6,perazzo,California,USA,39.4864,-120.35,7/17/98,Breeding,PNW_INW,1,Individual
+1740-91830,CA6,perazzo,California,USA,39.4864,-120.35,7/17/98,Breeding,PNW_INW,1,Individual
+1590-97448,CO1,clear_creek,Colorado,USA,37.7917,-108.236,6/28/97,Breeding,PNW_INW,1,Individual
+1590-97451,CO1,clear_creek,Colorado,USA,37.7917,-108.236,6/28/97,Breeding,PNW_INW,1,Individual
+1590-97457,CO1,clear_creek,Colorado,USA,37.7917,-108.236,7/1/97,Breeding,PNW_INW,1,Individual
+1590-97458,CO1,clear_creek,Colorado,USA,37.7917,-108.236,7/1/97,Breeding,PNW_INW,1,Individual
+1590-97460,CO1,clear_creek,Colorado,USA,37.7917,-108.236,7/1/97,Breeding,PNW_INW,1,Individual
+2350-24107,CO2,rio_grande,Colorado,USA,37.5,-106,6/14/04,Breeding,PNW_INW,1,Individual
+2350-24109,CO2,rio_grande,Colorado,USA,37.5,-106,6/14/04,Breeding,PNW_INW,1,Individual
+2350-24118,CO2,rio_grande,Colorado,USA,37.5,-106,6/13/04,Breeding,PNW_INW,1,Individual
+2350-24120,CO2,rio_grande,Colorado,USA,37.5,-106,6/13/04,Breeding,PNW_INW,1,Individual
+2350-24122,CO2,rio_grande,Colorado,USA,37.5,-106,6/13/04,Breeding,PNW_INW,1,Individual
+1740-91946,ID1,fall_creek,Idaho,USA,43.4345,-111.397,7/14/98,Breeding,PNW_INW,1,Individual
+1740-91947,ID1,fall_creek,Idaho,USA,43.4345,-111.397,7/14/98,Breeding,PNW_INW,1,Individual
+1740-91948,ID1,fall_creek,Idaho,USA,43.4345,-111.397,7/14/98,Breeding,PNW_INW,1,Individual
+1740-91949,ID1,fall_creek,Idaho,USA,43.4345,-111.397,7/14/98,Breeding,PNW_INW,1,Individual
+1740-91950,ID1,fall_creek,Idaho,USA,43.4345,-111.397,7/14/98,Breeding,PNW_INW,1,Individual
+1740-91940,ID2,mink_creek,Idaho,USA,42.7507,-112.392,7/11/98,Breeding,PNW_INW,1,Individual
+1740-91941,ID2,mink_creek,Idaho,USA,42.7507,-112.392,7/11/98,Breeding,PNW_INW,1,Individual
+1740-91942,ID2,mink_creek,Idaho,USA,42.7507,-112.392,7/11/98,Breeding,PNW_INW,1,Individual
+1740-91943,ID2,mink_creek,Idaho,USA,42.7507,-112.392,7/13/98,Breeding,PNW_INW,1,Individual
+1740-91944,ID2,mink_creek,Idaho,USA,42.7507,-112.392,7/13/98,Breeding,PNW_INW,1,Individual
+1740-91792,IN,willow_slew,Indiana,USA,40.9833,-87.525,7/3/98,Breeding,EST,1,LOO
+1740-91794,IN,willow_slew,Indiana,USA,40.9833,-87.525,7/4/98,Breeding,EST,1,Individual
+2290-24398,MD,piney_run,Maryland,USA,39.4,-76.99,NA,Breeding,EST,1,Individual
+2290-24399,MD,piney_run,Maryland,USA,39.4,-76.99,NA,Breeding,EST,1,LOO
+2550-06470,MI,fctc_sabo,Michigan,USA,42.84027,-85.303,6/26/15,Breeding,EST,1,Individual
+2730-29419,MI,fctc_sabo,Michigan,USA,42.84027,-85.303,6/19/15,Breeding,EST,1,Individual
+1740-91780,MN,elm_creek,Minnesota,USA,45.1333,-93.45,6/24/98,Breeding,EST,1,LOO
+1740-91783,MN,elm_creek,Minnesota,USA,45.1333,-93.45,6/25/98,Breeding,EST,1,Individual
+WIFLA,MN,elm_creek,Minnesota,USA,45.1333,-93.45,NA,Breeding,EST,1,Individual
+WIFLB,MN,elm_creek,Minnesota,USA,45.1333,-93.45,NA,Breeding,EST,1,Individual
+1590-97493,MT,lee_metcalf,Montana,USA,46.55,-114.1,6/19/98,Breeding,PNW_INW,1,Individual
+1590-97498,MT,hamon_memorial,Montana,USA,45.95,-114.133,6/20/98,Breeding,PNW_INW,1,Individual
+1590-97499,MT,hamon_memorial,Montana,USA,45.95,-114.133,6/20/98,Breeding,PNW_INW,1,Individual
+1740-51651,ND,arrowood,North Dakota,USA,47.2125,-98.8417,6/17/00,Breeding,EST,1,Individual
+1740-51653,ND,arrowood,North Dakota,USA,47.2125,-98.8417,6/17/00,Breeding,EST,1,Individual
+1740-51654,ND,arrowood,North Dakota,USA,47.2125,-98.8417,6/17/00,Breeding,EST,1,Individual
+1710-20644,NM1,west_fork_ditch,New Mexico,USA,33.0386,-108.538,6/28/00,Breeding,SW,1,Individual
+1710-46367,NM1,west_fork_ditch,New Mexico,USA,33.0386,-108.538,6/28/00,Breeding,SW,1,Individual
+1710-46369,NM1,west_fork_ditch,New Mexico,USA,33.0386,-108.538,6/28/00,Breeding,SW,1,Individual
+1710-46387,NM1,west_fork_ditch,New Mexico,USA,33.0386,-108.538,6/28/00,Breeding,SW,1,Individual
+1710-46389,NM1,west_fork_ditch,New Mexico,USA,33.0386,-108.538,6/28/00,Breeding,SW,1,Individual
+1740-91683,NM1,west_fork_ditch,New Mexico,USA,33.0386,-108.538,6/24/98,Breeding,SW,1,Individual
+1740-91688,NM2,tierra_azul,New Mexico,USA,36.3042,-105.573,7/9/98,Breeding,PNW_INW,1,Individual
+1740-91691,NM2,tierra_azul,New Mexico,USA,36.3042,-105.573,7/10/98,Breeding,PNW_INW,1,Individual
+1740-91692,NM2,los_ojos,New Mexico,USA,36.7292,-106.569,7/10/98,Breeding,SW,1,Individual
+1740-91693,NM2,los_ojos,New Mexico,USA,36.7292,-106.569,7/10/98,Breeding,PNW_INW,1,Individual
+1740-91694,NM2,los_ojos,New Mexico,USA,36.7292,-106.569,7/11/98,Breeding,PNW_INW,1,Individual
+1590-97226,NM3,zuni_nutria,New Mexico,USA,35.2354,-108.64,6/15/97,Breeding,PNW_INW,1,Individual
+1590-97227,NM3,zuni_nutria,New Mexico,USA,35.2354,-108.64,6/15/97,Breeding,PNW_INW,1,Individual
+1590-97229,NM3,zuni_nutria,New Mexico,USA,35.2354,-108.64,6/15/97,Breeding,PNW_INW,1,Individual
+1590-97230,NM3,zuni_nutria,New Mexico,USA,35.2354,-108.64,6/16/97,Breeding,PNW_INW,1,Individual
+1590-97363,NM3,zuni_nutria,New Mexico,USA,35.2354,-108.64,7/2/97,Breeding,PNW_INW,1,Individual
+1590-97364,NM3,zuni_nutria,New Mexico,USA,35.2354,-108.64,7/2/97,Breeding,PNW_INW,1,Individual
+1710-46316,NM4,shiprock,New Mexico,USA,36.8667,-108.777,7/24/98,Breeding,PNW_INW,1,Individual
+1710-46317,NM4,shiprock,New Mexico,USA,36.8667,-108.777,7/24/98,Breeding,PNW_INW,1,Individual
+1710-20405,NM5,san_marcial,New Mexico,USA,33.5729,-107.03,7/12/98,Breeding,SW,1,Individual
+1710-20634,NV1,ash_meadows,Nevada,USA,36.48333,-116.333,7/10/98,Breeding,SW,1,Individual
+1710-20635,NV1,ash_meadows,Nevada,USA,36.48333,-116.333,NA,Breeding,SW,1,Individual
+1710-20636,NV1,ash_meadows,Nevada,USA,36.48333,-116.333,7/10/98,Breeding,SW,1,Individual
+1710-46393,NV1,ash_meadows,Nevada,USA,36.48333,-116.333,7/12/99,Breeding,SW,1,Individual
+1590-97336,NV2,pahranagat_lake,Nevada,USA,37.3167,-115.133,6/15/97,Breeding,SW,1,Individual
+1590-97337,NV2,pahranagat_lake,Nevada,USA,37.3167,-115.133,6/15/97,Breeding,SW,1,Individual
+1590-97338,NV2,pahranagat_lake,Nevada,USA,37.3167,-115.133,6/16/97,Breeding,SW,1,Individual
+1590-97339,NV2,pahranagat_lake,Nevada,USA,37.3167,-115.133,6/16/97,Breeding,SW,1,Individual
+1590-97340,NV2,pahranagat_lake,Nevada,USA,37.3167,-115.133,6/16/97,Breeding,SW,1,Individual
+1590-97341,NV2,pahranagat_lake,Nevada,USA,37.3167,-115.133,6/16/97,Breeding,SW,1,Individual
+1740-91785,NY,black_creek,New York,USA,42.65,-73.9333,6/28/98,Breeding,EST,1,LOO
+1740-91786,NY,black_creek,New York,USA,42.65,-73.9333,6/28/98,Breeding,EST,1,LOO
+1740-91788,NY,jen_owen,New York,USA,43.375,-73.7,6/30/98,Breeding,EST,1,LOO
+1740-91789,NY,jen_owen,New York,USA,43.375,-73.7,7/1/98,Breeding,EST,1,LOO
+1740-91790,NY,jen_owen,New York,USA,43.375,-73.7,7/1/98,Breeding,EST,1,LOO
+1710-20366,OR1,malheur,Oregon,USA,42.8333,-118.867,7/10/98,Breeding,PNW_INW,1,Individual
+1710-46312,OR1,malheur,Oregon,USA,42.8333,-118.867,7/10/98,Breeding,PNW_INW,1,Individual
+1740-91796,OR1,malheur,Oregon,USA,42.8333,-118.867,7/10/98,Breeding,PNW_INW,1,Individual
+1740-91797,OR1,malheur,Oregon,USA,42.8333,-118.867,7/10/98,Breeding,PNW_INW,1,Individual
+1740-91800,OR1,malheur,Oregon,USA,42.8333,-118.867,7/10/98,Breeding,PNW_INW,1,Individual
+1710-20532,OR2,hunt_creek,Oregon,USA,46.1375,-123.452,7/18/99,Breeding,PNW_INW,1,LOO
+1710-20533,OR2,hunt_creek,Oregon,USA,46.1375,-123.452,7/18/99,Breeding,PNW_INW,1,LOO
+1710-20536,OR2,austoria_airport,Oregon,USA,46.1503,-123.877,7/20/99,Breeding,PNW_INW,1,LOO
+1710-20537,OR2,austoria_airport,Oregon,USA,46.1503,-123.877,7/20/99,Breeding,PNW_INW,1,LOO
+1710-20538,OR2,austoria_airport,Oregon,USA,46.1503,-123.877,7/20/99,Breeding,PNW_INW,1,LOO
+1710-20516,OR3,jones_creek,Oregon,USA,43.0394,-123.973,7/15/99,Breeding,PNW_INW,1,LOO
+1710-20517,OR3,jones_creek,Oregon,USA,43.0394,-123.973,7/15/99,Breeding,PNW_INW,1,Individual
+1710-20519,OR3,jones_creek,Oregon,USA,43.0394,-123.973,7/15/99,Breeding,PNW_INW,1,LOO
+1710-20520,OR3,jones_creek,Oregon,USA,43.0394,-123.973,7/15/99,Breeding,PNW_INW,1,LOO
+1710-20521,OR3,jones_creek,Oregon,USA,43.0394,-123.973,7/15/99,Breeding,PNW_INW,1,Individual
+1590-97272,OR4,klamath_lake,Oregon,USA,42.5317,-121.964,7/13/99,Breeding,PNW_INW,1,Individual
+1710-20509,OR4,klamath_lake,Oregon,USA,42.5317,-121.964,7/13/99,Breeding,PNW_INW,1,Individual
+1710-20512,OR4,klamath_lake,Oregon,USA,42.5317,-121.964,7/13/99,Breeding,PNW_INW,1,Individual
+1710-20513,OR4,klamath_lake,Oregon,USA,42.5317,-121.964,7/13/99,Breeding,PNW_INW,1,Individual
+1710-20527,OR5,priem_rd,Oregon,USA,44.7821,-123.377,7/18/99,Breeding,PNW_INW,1,LOO
+1710-20528,OR5,priem_rd,Oregon,USA,44.7821,-123.377,7/18/99,Breeding,PNW_INW,1,LOO
+1710-20529,OR5,priem_rd,Oregon,USA,44.7821,-123.377,7/18/99,Breeding,PNW_INW,1,LOO
+1710-20530,OR5,priem_rd,Oregon,USA,44.7821,-123.377,7/18/99,Breeding,PNW_INW,1,LOO
+1710-20531,OR5,priem_rd,Oregon,USA,44.7821,-123.377,7/18/99,Breeding,PNW_INW,1,LOO
+2760-18636,PA,bath,Pennsylvania,USA,40.7544,-75.4532,6/23/15,Breeding,EST,1,Individual
+2760-18638,PA,bath,Pennsylvania,USA,40.7544,-75.4532,6/23/15,Breeding,EST,1,LOO
+2760-18641,PA,orefield,Pennsylvania,USA,40.6551,-75.669,6/25/15,Breeding,EST,1,LOO
+2760-18647,PA,orefield,Pennsylvania,USA,40.6551,-75.669,6/30/15,Breeding,EST,1,Individual
+2760-18648,PA,bath,Pennsylvania,USA,40.74276,-75.3356,6/30/15,Breeding,EST,1,Individual
+2760-18653,PA,easton,Pennsylvania,USA,40.6927,-75.2946,7/3/15,Breeding,EST,1,Individual
+2760-18654,PA,easton,Pennsylvania,USA,40.6927,-75.2946,7/4/15,Breeding,EST,1,Individual
+2760-18657,PA,orefield,Pennsylvania,USA,40.6541,-75.6291,7/11/15,Breeding,EST,1,LOO
+2760-18659,PA,easton,Pennsylvania,USA,40.6927,-75.2946,7/12/15,Breeding,EST,1,Individual
+2760-18660,PA,easton,Pennsylvania,USA,40.6927,-75.2946,7/14/15,Breeding,EST,1,Individual
+2760-18662,PA,orefield,Pennsylvania,USA,40.6551,-75.669,7/17/15,Breeding,EST,1,Individual
+2760-18663,PA,orefield,Pennsylvania,USA,40.6551,-75.669,7/17/15,Breeding,EST,1,Individual
+1740-51656,SD1,little_white_river,South Dakota,USA,43.1667,-101.533,6/19/00,Breeding,EST,1,Individual
+1740-51657,SD1,little_white_river,South Dakota,USA,43.1667,-101.533,6/19/00,Breeding,EST,1,Individual
+1740-51658,SD1,little_white_river,South Dakota,USA,43.1667,-101.533,6/19/00,Breeding,EST,1,Individual
+1740-51659,SD1,little_white_river,South Dakota,USA,43.1667,-101.533,6/19/00,Breeding,EST,1,Individual
+1740-51660,SD1,little_white_river,South Dakota,USA,43.1667,-101.533,6/19/00,Breeding,EST,1,Individual
+1740-51664,SD2,waubay,South Dakota,USA,45.4042,-97.3333,6/20/00,Breeding,EST,1,Individual
+1740-51665,SD2,waubay,South Dakota,USA,45.4042,-97.3333,6/20/00,Breeding,EST,1,Individual
+1740-51666,SD2,waubay,South Dakota,USA,45.4042,-97.3333,6/20/00,Breeding,EST,1,Individual
+1740-51667,SD2,waubay,South Dakota,USA,45.4042,-97.3333,6/20/00,Breeding,EST,1,Individual
+1740-51612,TN1,mountain_city,Tennessee,USA,36.3942,-81.8519,6/19/00,Breeding,EST,1,LOO
+1740-51613,TN1,mountain_city,Tennessee,USA,36.3942,-81.8519,6/19/00,Breeding,EST,1,LOO
+1740-51615,TN1,mountain_city,Tennessee,USA,36.3942,-81.8519,6/19/00,Breeding,EST,1,Individual
+1740-51616,TN1,mountain_city,Tennessee,USA,36.3942,-81.8519,6/19/00,Breeding,EST,1,LOO
+1740-51601,TN2,cross_creek,Tennessee,USA,36.5,-87.7874,6/16/00,Breeding,EST,1,Individual
+1740-51604,TN2,cross_creek,Tennessee,USA,36.5,-87.7874,6/16/00,Breeding,EST,1,Individual
+1740-51605,TN2,cross_creek,Tennessee,USA,36.5,-87.7874,6/16/00,Breeding,EST,1,Individual
+1740-91954,UT1,st_george,Utah,USA,37.1083,-113.738,8/5/98,Breeding,SW,1,Individual
+1740-91955,UT1,st_george,Utah,USA,37.1083,-113.738,8/5/98,Breeding,SW,1,Individual
+1740-91956,UT1,st_george,Utah,USA,37.1083,-113.738,8/5/98,Breeding,SW,1,Individual
+1740-91957,UT1,st_george,Utah,USA,37.1083,-113.738,8/5/98,Breeding,SW,1,Individual
+1740-51684,UT2,fish_creek,Utah,USA,39.7751,-111.204,7/7/02,Breeding,PNW_INW,1,Individual
+1740-51687,UT2,fish_creek,Utah,USA,39.7751,-111.204,7/8/02,Breeding,PNW_INW,1,Individual
+1740-91921,UT2,fish_creek,Utah,USA,39.7751,-111.204,6/28/98,Breeding,PNW_INW,1,Individual
+1740-91922,UT2,fish_creek,Utah,USA,39.7751,-111.204,6/28/98,Breeding,PNW_INW,1,Individual
+1740-91923,UT2,fish_creek,Utah,USA,39.7751,-111.204,6/28/98,Breeding,PNW_INW,1,Individual
+1740-51822,UT3,white_river,Utah,USA,40.6725,-109.677,6/30/01,Breeding,PNW_INW,1,Individual
+1740-51825,UT3,white_river,Utah,USA,40.6725,-109.677,6/30/01,Breeding,PNW_INW,1,Individual
+1740-51826,UT3,white_river,Utah,USA,40.6725,-109.677,6/30/01,Breeding,PNW_INW,1,Individual
+1740-51827,UT3,white_river,Utah,USA,40.6725,-109.677,6/30/01,Breeding,PNW_INW,1,Individual
+1740-51828,UT3,white_river,Utah,USA,40.6725,-109.677,6/30/01,Breeding,PNW_INW,1,Individual
+1590-27284,WA,fork_clearcut,Washington,USA,47.9678,-124.401,NA,Breeding,PNW_INW,1,LOO
+1710-20351,CR1,santa_cruz,Guanacaste,Costa Rica,10.329,-85.6495,3/18/99,Wintering,PNW_INW,1,Individual
+1710-20352,CR1,santa_cruz,Guanacaste,Costa Rica,10.329,-85.6495,3/18/99,Wintering,SW,1,Individual
+1710-20353,CR1,santa_cruz,Guanacaste,Costa Rica,10.329,-85.6495,3/18/99,Wintering,SW,1,Individual
+1710-20354,CR1,santa_cruz,Guanacaste,Costa Rica,10.329,-85.6495,3/18/99,Wintering,PNW_INW,1,Individual
+1710-20356,CR1,bolson,Guanacaste,Costa Rica,10.3552,-85.4195,3/19/99,Wintering,PNW_INW,1,Individual
+1710-46135,CR1,bolson,Guanacaste,Costa Rica,10.3552,-85.4195,1/5/01,Wintering,PNW_INW,1,Individual
+1710-46345,CR1,bolson,Guanacaste,Costa Rica,10.3552,-85.4195,1/1/01,Wintering,SW,1,Individual
+1710-46355,CR1,bolson,Guanacaste,Costa Rica,10.3552,-85.4195,1/1/01,Wintering,PNW_INW,1,Individual
+1740-91807,CR1,bolson,Guanacaste,Costa Rica,10.3552,-85.4195,1/16/99,Wintering,PNW_INW,1,Individual
+1740-91841,CR1,santa_cruz,Guanacaste,Costa Rica,10.329,-85.6495,1/12/99,Wintering,PNW_INW,1,Individual
+1740-91842,CR1,santa_cruz,Guanacaste,Costa Rica,10.329,-85.6495,1/12/99,Wintering,PNW_INW,1,Individual
+1740-91990,CR1,bolson,Guanacaste,Costa Rica,10.3552,-85.4195,12/24/99,Wintering,PNW_INW,1,Individual
+1740-92000,CR1,bolson,Guanacaste,Costa Rica,10.3552,-85.4195,1/5/01,Wintering,PNW_INW,1,Individual
+1710-20358,CR2,chomes,Puntarenas,Costa Rica,10.0693,-84.8993,3/21/99,Wintering,PNW_INW,1,Individual
+1710-46117,CR2,chomes,Puntarenas,Costa Rica,10.0693,-84.8993,1/4/00,Wintering,PNW_INW,1,Individual
+1710-46141,CR2,chomes,Puntarenas,Costa Rica,10.0693,-84.8993,1/11/01,Wintering,PNW_INW,1,Individual
+1740-91986,CR2,chomes,Puntarenas,Costa Rica,10.0693,-84.8993,12/22/99,Wintering,PNW_INW,1,Individual
+1740-91995,CR2,chomes,Puntarenas,Costa Rica,10.0693,-84.8993,10/9/00,Wintering,PNW_INW,1,Individual
+2150-26574,CR2,playa_caleta,Guanacaste,Costa Rica,9.759,-85.266,2/11/00,Wintering,SW,1,Individual
+2150-26575,CR2,playa_caleta,Guanacaste,Costa Rica,9.759,-85.266,2/11/00,Wintering,PNW_INW,1,Individual
+1740-91958,CR3,coto,Puntarenas,Costa Rica,8.562,-82.9578,2/6/99,Wintering,PNW_INW,1,Individual
+1740-91959,CR3,coto,Puntarenas,Costa Rica,8.562,-82.9578,2/6/99,Wintering,PNW_INW,1,Individual
+1740-91960,CR3,coto,Puntarenas,Costa Rica,8.562,-82.9578,2/7/99,Wintering,EST,1,Individual
+1740-91961,CR3,coto,Puntarenas,Costa Rica,8.562,-82.9578,2/7/99,Wintering,PNW_INW,1,Individual
+1740-91963,CR3,puerto_jimenez,Puntarenas,Costa Rica,8.5155,-83.2942,2/9/99,Wintering,PNW_INW,1,Individual
+1740-91964,CR3,puerto_jimenez,Puntarenas,Costa Rica,8.5155,-83.2942,2/9/99,Wintering,PNW_INW,1,Individual
+1740-91965,CR3,puerto_jimenez,Puntarenas,Costa Rica,8.5155,-83.2942,2/9/99,Wintering,EST,1,Individual
+2240-94362,EC1,coca,Orellana,Ecuador,-0.455541,-76.9928,1/24/04,Wintering,EST,1,Individual
+2240-94363,EC1,coca,Orellana,Ecuador,-0.455541,-76.9928,1/24/04,Wintering,EST,1,Individual
+2240-94399,EC1,coca,Orellana,Ecuador,-0.455541,-76.9928,1/11/04,Wintering,EST,1,Individual
+2330-99748,EC1,coca,Orellana,Ecuador,-0.455541,-76.9928,1/22/05,Wintering,EST,1,Individual
+2330-99750,EC1,coca,Orellana,Ecuador,-0.455541,-76.9928,1/23/05,Wintering,EST,1,Individual
+2330-99751,EC1,coca,Orellana,Ecuador,-0.455541,-76.9928,1/23/05,Wintering,EST,1,Individual
+2240-94344,EC2,jatun_sacha,Napo,Ecuador,-1.07,-77.61,NA,Wintering,EST,1,Individual
+2240-94345,EC2,jatun_sacha,Napo,Ecuador,-1.07,-77.61,NA,Wintering,EST,1,Individual
+2240-94346,EC2,jatun_sacha,Napo,Ecuador,-1.07,-77.61,1/26/04,Wintering,EST,1,Individual
+2240-94365,EC2,jatun_sacha,Napo,Ecuador,-1.07,-77.61,1/27/04,Wintering,EST,1,Individual
+2240-94366,EC2,jatun_sacha,Napo,Ecuador,-1.07,-77.61,1/27/04,Wintering,EST,1,Individual
+2330-99702,EC3,sani_island,Sucumbios,Ecuador,-0.475861,-76.3132,1/13/04,Wintering,EST,1,Individual
+2330-99763,EC3,sani_island,Sucumbios,Ecuador,-0.475861,-76.3132,1/26/05,Wintering,EST,1,Individual
+2330-99765,EC3,sani_island,Sucumbios,Ecuador,-0.475861,-76.3132,1/28/05,Wintering,EST,1,Individual
+2330-99715,EC3,sani_island,Sucumbios,Ecuador,-0.423313,-76.2847,1/13/04,Wintering,EST,1,Individual
+2240-94367,EC4,tena,Napo,Ecuador,-0.9664,-77.8119,1/28/04,Wintering,EST,1,Individual
+2330-99717,EC4,tena,Napo,Ecuador,-0.9664,-77.8119,1/27/04,Wintering,EST,1,Individual
+2330-99727,EC4,tena,Napo,Ecuador,-0.995672,-77.8132,1/19/05,Wintering,EST,1,Individual
+2330-99728,EC4,tena,Napo,Ecuador,-0.995672,-77.8132,1/20/05,Wintering,PNW_INW,1,Individual
+2150-26520,EL1,jocotal,San Miguel,El Salvador,13.3192,-88.2432,1/31/00,Wintering,PNW_INW,1,Individual
+2150-26545,EL1,jocotal,San Miguel,El Salvador,13.3262,-88.2697,1/30/00,Wintering,PNW_INW,1,Individual
+2150-26549,EL1,jocotal,San Miguel,El Salvador,13.3262,-88.2697,1/30/00,Wintering,PNW_INW,1,Individual
+2150-26553,EL1,jocotal,San Miguel,El Salvador,13.3192,-88.2432,1/31/00,Wintering,PNW_INW,1,Individual
+2150-26522,EL2,nancuchiname,San Vicente,El Salvador,13.3413,-88.719,2/1/00,Wintering,PNW_INW,1,Individual
+2150-26535,EL2,nancuchiname,San Vicente,El Salvador,13.3413,-88.719,1/2/00,Wintering,PNW_INW,1,Individual
+2150-26536,EL2,nancuchiname,San Vicente,El Salvador,13.3413,-88.719,2/1/00,Wintering,PNW_INW,1,Individual
+2150-26548,EL2,nancuchiname,San Vicente,El Salvador,13.3413,-88.719,1/2/00,Wintering,PNW_INW,1,Individual
+2150-26562,EL2,nancuchiname,San Vicente,El Salvador,13.3413,-88.719,1/2/00,Wintering,PNW_INW,1,Individual
+2330-99783,GT1,la_nueva,Izabal,Guatemala,15.246805,-89.1036,1/27/07,Wintering,PNW_INW,1,Individual
+2330-99787,GT1,la_cabana,Izabal,Guatemala,15.518396,-89.2995,12/16/05,Wintering,PNW_INW,1,Individual
+2330-99788,GT1,la_cabana,Izabal,Guatemala,15.518396,-89.2995,12/16/05,Wintering,PNW_INW,1,Individual
+2330-99789,GT1,la_cabana,Izabal,Guatemala,15.518396,-89.2995,12/16/05,Wintering,PNW_INW,1,Individual
+2410-67701,GT1,la_nueva,Izabal,Guatemala,15.246805,-89.1036,1/26/07,Wintering,PNW_INW,1,Individual
+2410-67707,GT1,la_nueva,Izabal,Guatemala,15.246805,-89.1036,12/11/05,Wintering,PNW_INW,1,Individual
+2410-67743,GT1,la_cabana,Izabal,Guatemala,15.518396,-89.2995,1/31/07,Wintering,PNW_INW,1,Individual
+2150-26560,GT2,santiago,San Vicente,El Salvador,13.692,-89.943,2/8/00,Wintering,PNW_INW,1,Individual
+2150-26570,GT2,santiago,San Vicente,El Salvador,13.692,-89.943,2/9/00,Wintering,PNW_INW,1,Individual
+2330-99790,GT2,rio_achiguate,Escuintla,Guatemala,13.930099,-90.9126,12/20/05,Wintering,PNW_INW,1,Individual
+2410-67749,GT2,rio_achiguate,Escuintla,Guatemala,13.930099,-90.9126,2/6/07,Wintering,PNW_INW,1,Individual
+2240-94382,GT3,rio_samala,Retalhuleu,Guatemala,14.57433,-91.633,12/21/05,Wintering,PNW_INW,1,Individual
+2410-67713,GT3,rio_samala,Retalhuleu,Guatemala,14.57433,-91.633,12/20/05,Wintering,PNW_INW,1,Individual
+2410-67714,GT3,rio_samala,Retalhuleu,Guatemala,14.57433,-91.633,12/20/05,Wintering,PNW_INW,1,Individual
+2410-67717,GT3,rio_samala,Retalhuleu,Guatemala,14.57433,-91.633,12/21/05,Wintering,PNW_INW,1,Individual
+2230-99721,MX1,barra_vieja,Guerrero,Mexico,16.72081,-99.6002,3/7/04,Wintering,PNW_INW,1,Individual
+2230-99722,MX1,barra_vieja,Guerrero,Mexico,16.72081,-99.6002,3/7/04,Wintering,PNW_INW,1,Individual
+2240-94377,MX1,barra_vieja,Guerrero,Mexico,16.72081,-99.6002,3/6/04,Wintering,PNW_INW,1,Individual
+2240-94379,MX1,barra_vieja,Guerrero,Mexico,16.72081,-99.6002,3/7/04,Wintering,PNW_INW,1,Individual
+2240-94380,MX1,barra_vieja,Guerrero,Mexico,16.72081,-99.6002,3/7/04,Wintering,PNW_INW,1,Individual
+2150-26597,MX2,cuanjinicuilapa,Guerrero,Mexico,16.5,-98.4077,2/8/03,Wintering,PNW_INW,1,Individual
+2150-26598,MX2,cuanjinicuilapa,Guerrero,Mexico,16.47036,-98.4126,2/8/03,Wintering,PNW_INW,1,Individual
+2150-26599,MX2,cuanjinicuilapa,Guerrero,Mexico,16.47036,-98.4126,2/8/03,Wintering,PNW_INW,1,Individual
+2240-94348,MX2,cuanjinicuilapa,Guerrero,Mexico,16.5,-98.4077,2/21/04,Wintering,PNW_INW,1,Individual
+2240-94353,MX2,marquelia,Guerrero,Mexico,16.5835,-98.8255,2/26/03,Wintering,PNW_INW,1,Individual
+2240-94375,MX2,marquelia,Guerrero,Mexico,16.58252,-98.8259,3/4/04,Wintering,PNW_INW,1,Individual
+2240-94376,MX2,marquelia,Guerrero,Mexico,16.58252,-98.8259,3/4/04,Wintering,PNW_INW,1,Individual
+2330-99718,MX2,cuanjinicuilapa,Guerrero,Mexico,16.47036,-98.4126,2/20/04,Wintering,PNW_INW,1,Individual
+2240-94317,MX3,laguna_pampa,Chiapas,Mexico,14.7226,-92.4199,2/14/03,Wintering,PNW_INW,1,Individual
+2240-94339,MX3,laguna_pampa,Chiapas,Mexico,14.7226,-92.4199,2/13/03,Wintering,PNW_INW,1,Individual
+2240-94340,MX3,laguna_pampa,Chiapas,Mexico,14.7226,-92.4199,2/13/03,Wintering,PNW_INW,1,Individual
+2240-94341,MX3,laguna_pampa,Chiapas,Mexico,14.7226,-92.4199,2/14/03,Wintering,PNW_INW,1,Individual
+2240-94374,MX3,laguna_pampa,Chiapas,Mexico,14.7226,-92.4199,2/28/04,Wintering,PNW_INW,1,Individual
+2240-94302,MX4,la_barra,Chiapas,Mexico,15.8895,-93.7104,2/12/03,Wintering,PNW_INW,1,Individual
+2240-94315,MX4,la_barra,Chiapas,Mexico,15.8895,-93.7104,2/12/03,Wintering,PNW_INW,1,Individual
+2240-94349,MX4,la_barra,Chiapas,Mexico,15.8895,-93.7104,2/23/03,Wintering,PNW_INW,1,Individual
+2240-94350,MX4,la_barra,Chiapas,Mexico,15.8895,-93.7104,2/23/03,Wintering,PNW_INW,1,Individual
+2240-94378,MX4,la_barra,Chiapas,Mexico,15.8895,-93.7104,3/7/04,Wintering,PNW_INW,1,Individual
+2330-99745,MX5,novillero,Nayarit,Mexico,22.39511,-105.55,12/24/04,Wintering,PNW_INW,1,Individual
+2330-99759,MX5,novillero,Nayarit,Mexico,22.39511,-105.55,12/23/04,Wintering,PNW_INW,1,Individual
+2410-67720,MX5,novillero,Nayarit,Mexico,22.39511,-105.55,2/24/06,Wintering,PNW_INW,1,Individual
+2410-67721,MX5,novillero,Nayarit,Mexico,22.39511,-105.55,2/25/06,Wintering,PNW_INW,1,Individual
+2240-94352,MX6,rio_copalita,Oaxaca,Mexico,15.7925,-96.0495,2/25/03,Wintering,PNW_INW,1,Individual
+2240-94371,MX6,rio_copalita,Oaxaca,Mexico,15.79279,-96.0488,2/22/04,Wintering,PNW_INW,1,Individual
+2240-94372,MX6,rio_copalita,Oaxaca,Mexico,15.79279,-96.0488,2/23/04,Wintering,PNW_INW,1,Individual
+2330-99711,MX6,rio_copalita,Oaxaca,Mexico,15.7925,-96.0495,2/23/04,Wintering,PNW_INW,1,Individual
+2150-26564,MX7,manzanillo,Guerrero,Mexico,19.16164,-104.559,2/7/02,Wintering,PNW_INW,1,Individual
+2240-94324,MX7,manzanillo,Guerrero,Mexico,19.1562,-104.558,2/6/02,Wintering,PNW_INW,1,Individual
+2240-94325,MX7,manzanillo,Guerrero,Mexico,19.1562,-104.558,2/6/02,Wintering,PNW_INW,1,Individual
+2240-94308,MX8,ixtapa,Guerrero,Mexico,17.69,-101.64,2/18/02,Wintering,PNW_INW,1,Individual
+2240-94318,MX8,ixtapa,Guerrero,Mexico,17.69,-101.64,2/18/02,Wintering,PNW_INW,1,Individual
+2410-67724,NI1,cabalia,Chinandega,Nicaragua,12.887293,-87.49636,1/15/17,Wintering,SW,1,Individual
+2410-67727,NI1,san_miguel,Chinandega,Nicaragua,12.798346,-87.1575,1/17/17,Wintering,SW,1,Individual
+2410-67750,NI1,san_miguel,Chinandega,Nicaragua,12.798346,-87.1575,1/17/17,Wintering,SW,1,Individual
+2410-67753,NI1,cabalia,Chinandega,Nicaragua,12.887084,-87.497,1/18/17,Wintering,SW,1,Individual
+2410-67755,NI1,cabalia,Chinandega,Nicaragua,12.887084,-87.497,1/18/17,Wintering,SW,1,Individual
+2410-67732,NI2,laguna_tisma,Chontales,Nicaragua,12.085834,-85.43054,1/25/17,Wintering,SW,1,Individual
+2150-26512,PAN1,el_real,Darién,Panama,8.1057,-77.7228,1/22/00,Wintering,PNW_INW,1,Individual
+2150-26513,PAN1,el_real,Darién,Panama,8.1057,-77.7228,1/22/00,Wintering,PNW_INW,1,Individual
+2150-26541,PAN1,el_real,Darién,Panama,8.1057,-77.7228,1/22/00,Wintering,PNW_INW,1,Individual
+2150-26542,PAN1,el_real,Darién,Panama,8.1057,-77.7228,1/24/00,Wintering,PNW_INW,1,Individual
+2150-26501,PAN2,laguna_naranja,Los Santos,Panama,7.4475,-80.372,1/9/00,Wintering,PNW_INW,1,Individual
+2150-26502,PAN2,laguna_naranja,Los Santos,Panama,7.4475,-80.372,1/10/00,Wintering,EST,1,Individual
+2150-26503,PAN2,laguna_naranja,Los Santos,Panama,7.4475,-80.372,1/10/00,Wintering,PNW_INW,1,Individual
+2150-26505,PAN2,laguna_naranja,Los Santos,Panama,7.4475,-80.372,1/10/00,Wintering,EST,1,Individual
+2150-26523,PAN2,laguna_naranja,Los Santos,Panama,7.4475,-80.372,1/9/00,Wintering,PNW_INW,1,Individual
+2150-26506,PAN3,pese,Herrera,Panama,7.8867,-80.5405,1/12/00,Wintering,PNW_INW,1,Individual
+2150-26529,PAN3,pese,Herrera,Panama,7.8867,-80.5405,1/12/00,Wintering,PNW_INW,1,Individual
+2150-26530,PAN3,pese,Herrera,Panama,7.8867,-80.5405,1/12/00,Wintering,PNW_INW,1,Individual
+2150-26531,PAN3,pese,Herrera,Panama,7.8867,-80.5405,1/12/00,Wintering,PNW_INW,1,Individual
+2150-26533,PAN3,pese,Herrera,Panama,7.8867,-80.5405,1/17/00,Wintering,EST,1,Individual
+2150-26511,PAN4,tocuman_marsh,Panamá,Panama,9.0705,-79.3755,1/19/00,Wintering,PNW_INW,1,Individual
+2150-26517,PAN4,tocuman_marsh,Panamá,Panama,9.0705,-79.3755,1/19/00,Wintering,PNW_INW,1,Individual
