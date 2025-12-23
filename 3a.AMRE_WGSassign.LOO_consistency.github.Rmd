@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-## Breeding and nonbreeding beagle file was thinned to 10 equally sized files by line usiing awk and labeled with aa-aj
+## Breeding and nonbreeding beagle file was thinned to 10 equally sized files by line using awk and labeled with aa-aj
 
 Breeding beagle was subset into a reference bird beagle so each genetic group had similar effective sample size and non-reference beagle. Non-reference individuals would be assigned to breeding genetic groups similar to the nonbreeding birds
 
@@ -63,17 +63,14 @@ Cross-validation is an important technique for determining assignment accuracy. 
 ```{bash}
 conda activate WGSassign
 
+## Check the effective sample size (ESS)
 WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.aa.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_aa.beagle-gl.ne --ne_obs
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.aa.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_aa.beagle-gl.LOO --loo
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.ab.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_ab.beagle-gl.LOO --loo
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.ac.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_ac.beagle-gl.LOO --loo
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.ad.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_ad.beagle-gl.LOO --loo
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.ae.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_ae.beagle-gl.LOO --loo
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.af.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_af.beagle-gl.LOO --loo
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.ag.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_ag.beagle-gl.LOO --loo
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.ah.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_ah.beagle-gl.LOO --loo
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.ai.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_ai.beagle-gl.LOO --loo
-WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.aj.gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_aj.beagle-gl.LOO --loo
+
+## Run leave one out cross validation (LOO) for each subset
+for j in aa ab ac ad ae af ag ah ai aj
+do
+WGSassign -b REF125b.breeding.combined.new_subsetted.beagle."$j".gz --pop_af_IDs AMRE.REF125b.reference_K5.IDs.txt --get_reference_af  --out REF125b.angsd.thin_10_"$j".beagle-gl.LOO --loo
+done
 
 ```
 
@@ -85,10 +82,12 @@ WGSassign -b REF125b.breeding.combined.new_subsetted.beagle.aj.gz --pop_af_IDs A
 for j in aa ab ac ad ae af ag ah ai aj
 do
 WGSassign --beagle winter148.combined.new_subsetted.beagle.thin_"$j".gz --pop_af_file REF125b.angsd.thin_10_"$j".beagle-gl.LOO.pop_af.npy --get_pop_like --out winter148.combined_new.subsetted.REF125b.poplik.thin_10."$j" --threads 1
-
-WGSassign --beagle NONREF44b.breeding.combined.new_subsetted.beagle."$j".gz --pop_af_file REF125b.angsd.thin_10_"$j".beagle-gl.LOO.pop_af.npy --get_pop_like --out NONREF44b.combined_new.subsetted.REF125b.poplik.thin_10."$j" --threads 1
 done
 ```
+
+Will also run the above for the nonreference breeding beagle file:  NONREF44b.breeding.combined.new_subsetted.beagle."$j".gz 
+
+But the below code chunk requires specific files that have the order of individuals, so each have to be run separately, so WGSassign is run separately, then the the summary/conversion script.
 
 
 ## Convert WGSoutput to something readible in R
@@ -97,12 +96,18 @@ done
 ## Read in files
 files <- list.files(
   path = "output/WGSassign/AMRE",
-  pattern = "\\.pop_like.txt$", 
+  pattern = "^winter148.*\\.pop_like.txt$", 
   full.names = TRUE
 )
 files
 
 ## Function to summarise WGSassign output. This needs to be done for reference breeders, nonreference breeders and nonbreeding birds separately by changing the ne_ind_order_sub file
+
+## For reference breeders
+ne_ind_order_sub<-read_delim("input/WGSassign/AMRE/AMRE.REF125b.breeding_sample_table.col_num.txt",delim="\t",col_names = T) %>% rename(Sample=sample_name) 
+
+## For nonreference breeders
+ne_ind_order_sub<-read_delim("input/WGSassign/AMRE/AMRE.NONREF44b.col_num.txt",delim="\t",col_names = F) %>% rename(Sample=X1,col_start=X2,col_end=X3,bam=X4,season=X5,ClimGroup=X6,Site=X7,Location=X8,State=X9,Country=X10,Lat=X11,Long=X12,Date=X13,Stage=X14,Notes=X18) 
 
 format_wgsout <- function(f) {
   breeding.likelihood <- read_delim(f, delim=" ",col_names = F)
@@ -128,7 +133,6 @@ lapply(files, format_wgsout)
 ## Thinned chunks of reference breeders (125 inds)- K=5, final beagle file (better ESS)
 ```{r}
 meta<-read_csv("input/WGSassign/AMRE/AMRE_Assignments.csv") %>% rename(AssignmentOld=Assignment,ConsistencyOld=Consistency)
-ne_ind_order_sub<-read_delim("input/WGSassign/AMRE/AMRE.REF125b.breeding_sample_table.col_num.txt",delim="\t",col_names = T) %>% rename(Sample=sample_name)
 
 brloo.summary1 <- read_delim("output/WGSassign/AMRE/REF125b.angsd.thin_10_aa.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>%
   dplyr::select(Sample,repunit,AssignedPop)
@@ -153,7 +157,6 @@ brloo.summary10 <- read_delim("output/WGSassign/AMRE/REF125b.angsd.thin_10_aj.be
 
 rbind(brloo.summary1,brloo.summary2,brloo.summary3,brloo.summary4,brloo.summary5,brloo.summary6,brloo.summary7,brloo.summary8,brloo.summary9,brloo.summary10) %>% group_by(Sample,repunit,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
   #left_join(ne_ind_order_sub) %>% 
-  #left_join(meta) %>% 
   pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% 
   replace(is.na(.), 0) %>% 
   left_join(meta) %>% 
