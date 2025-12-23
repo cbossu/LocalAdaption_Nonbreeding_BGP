@@ -1,0 +1,142 @@
+---
+title: "WIFL WGSassign"
+author: "Christen Bossu"
+date: "5/29/2024"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+```{r}
+library(tidyverse)
+```
+#New reference birds (use some admixed)
+
+```{r}
+met1<-read_delim("~/Downloads/YEWA_Qvalues_meta.csv",delim=",")
+ind<-read_delim("../REF75_new.order.txt",delim="\t",col_names = F) %>% rename(Sample=X1)
+met1 %>% distinct(Site,Location,State) %>% print(n=32)
+met2<-met1 %>% filter(Site=="W"|Site=="S"|Site=="P"|Site=="M"|Site=="K"|Site=="E"|Site=="G"|Site=="A"|Site=="B"|Site=="D"|Site=="X") %>% arrange(Site) %>% filter(Sample!="3014ywar") %>% filter(Sample!="3017ywar") %>% filter(Sample!="3018ywar") %>% filter(Sample!="3022ywar") %>% filter(Sample!="4883ywar") %>% filter(Sample!="21N0174") %>% filter(Sample!="2014ywar") %>% filter(Sample!="1005ywar") %>% filter(Sample!="1008ywar") %>% filter(Sample!="4907ywar") %>% filter(Sample!="3013ywar") %>% 
+  #print(n=60) %>% 
+  mutate(repunit=if_else(Site=="A"|Site=="B"|Site=="D","WBoreal",if_else(Site=="E"|Site=="G","PNW",if_else(Site=="K"|Site=="M","Southwest",if_else(Site=="P"|Site=="S","Central",if_else(Site=="W"|Site=="X","East","check")))))) %>% 
+  group_by(Site,State) %>% summarise(tally=n())
+  
+met2<-met1 %>% filter(Site=="W"|Site=="S"|Site=="P"|Site=="M"|Site=="K"|Site=="E"|Site=="G"|Site=="A"|Site=="B"|Site=="D"|Site=="X") %>% arrange(Site) %>% filter(Sample!="3014ywar") %>% filter(Sample!="3017ywar") %>% filter(Sample!="3018ywar") %>% filter(Sample!="3022ywar") %>% filter(Sample!="4883ywar") %>% filter(Sample!="21N0174") %>% filter(Sample!="2014ywar") %>% filter(Sample!="1005ywar") %>% filter(Sample!="1008ywar") %>% filter(Sample!="4907ywar") %>% filter(Sample!="3013ywar") %>% 
+  #print(n=60) %>% 
+  mutate(repunit=if_else(Site=="A"|Site=="B"|Site=="D","WBoreal",if_else(Site=="E"|Site=="G","PNW",if_else(Site=="K"|Site=="M","Southwest",if_else(Site=="P"|Site=="S","Central",if_else(Site=="W"|Site=="X","East","check")))))) %>% dplyr::select(Sample,State,repunit) %>% write.table("REF75_new.ind_repunit.txt",row.names=F,quote=F,sep="\t")
+
+ind %>% left_join(met2) %>% dplyr::select(Sample,repunit) %>% write.table("REF75_new.ind_repunit.order.fix.txt",row.names=F,quote=F,sep="\t")
+```
+## Breeding leave one out (ESS looks fine)
+
+#Thinned- not consecutive chunks of reference genome- exclude white mountains, K=4
+```{r}
+meta<-read_csv("../../pcangsd_admix/WIFL_Assignments.csv") %>% rename(AssignmentOld=Assignment,ConsistencyOld=Consistency)
+ne_ind_order_sub<-read_delim("WIFL.REF56_exclWTMT.meta.ind.col_num.txt",delim="\t",col_names = T) 
+
+brloo.summary1 <- read_delim("REF_exclWTMT.angsd.thin_10_aa.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>%
+  dplyr::select(Sample,repunit,AssignedPop)
+
+brloo.summary2 <- read_delim("REF_exclWTMT.angsd.thin_10_ab.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+
+brloo.summary3 <- read_delim("REF_exclWTMT.angsd.thin_10_ac.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+
+brloo.summary4 <- read_delim("REF_exclWTMT.angsd.thin_10_ad.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+
+brloo.summary5 <- read_delim("REF_exclWTMT.angsd.thin_10_ae.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+
+brloo.summary6 <- read_delim("REF_exclWTMT.angsd.thin_10_af.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+
+brloo.summary7 <- read_delim("REF_exclWTMT.angsd.thin_10_ag.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+
+brloo.summary8 <- read_delim("REF_exclWTMT.angsd.thin_10_ah.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+
+brloo.summary9 <- read_delim("REF_exclWTMT.angsd.thin_10_ai.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+
+brloo.summary10 <- read_delim("REF_exclWTMT.angsd.thin_10_aj.beagle-gl.LOO.pop_like_LOO.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,repunit,AssignedPop)
+
+rbind(brloo.summary1,brloo.summary2,brloo.summary3,brloo.summary4,brloo.summary5,brloo.summary6,brloo.summary7,brloo.summary8,brloo.summary9,brloo.summary10) %>% group_by(Sample,repunit,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
+  #filter(Consistency>0.79) %>% 
+  left_join(ne_ind_order_sub) %>% 
+  #left_join(meta) %>% 
+  pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% 
+  #replace(is.na(.), 0) %>% 
+  arrange(Assignment) %>% 
+  write.table("WIFL_exclWTMT.REF56.thin_10.consistent.wide.angsd_loco-pipe.txt",row.names=F,quote=F,sep="\t")
+```
+
+#thin every 10th snp starting from 1,2..10 for winter assignment
+```{r}
+assign.summary1 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>%
+  dplyr::select(Sample,AssignedPop)
+
+assign.summary2 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.ab.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+assign.summary3 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.ac.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+assign.summary4 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.ad.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+assign.summary5 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.ae.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+assign.summary6 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.af.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+assign.summary7 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.ag.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+assign.summary8 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.ah.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+assign.summary9 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.ai.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+assign.summary10 <- read_delim("wifl128.nonbreed.combined.subsetted.REF_exclWTMT.poplik.thin_10.aj.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+rbind(assign.summary1,assign.summary2,assign.summary3,assign.summary4,assign.summary5,assign.summary6,assign.summary7,assign.summary8,assign.summary9,assign.summary10) %>% group_by(Sample,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
+  #filter(Consistency>0.79) %>% 
+  #left_join(meta) %>% 
+  #filter(AssignedPop==AssignmentOld) %>% 
+  pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% replace(is.na(.), 0) %>% 
+  left_join(meta) %>% write.table("wifl.wint128.thin_10_all.assigned_pop.REF_exclWTMT.wide_consistent.angsd.loco-pipe.txt",row.names=F,quote=F,sep="\t")
+```
+
+
+#nonref assignment with thinned beagle
+```{r}
+nrbr.summary1 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>%
+  dplyr::select(Sample,AssignedPop)
+
+nrbr.summary2 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+nrbr.summary3 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+nrbr.summary4 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+nrbr.summary5 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+nrbr.summary6 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+nrbr.summary7 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+nrbr.summary8 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+nrbr.summary9 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+nrbr.summary10 <- read_delim("NONREF_exclWTMT.breeding.combined.subsetted.REF_exclWTMT.poplik.thin_10.aa.pop_like.txt.WGS_summary.txt",delim="\t") %>% dplyr::select(Sample,AssignedPop)
+
+#meta<-read_delim("../YEWA.breeding191.ClimGrouoFID.txt",delim="\t")
+rbind(nrbr.summary1,nrbr.summary2,nrbr.summary3,nrbr.summary4,nrbr.summary5,nrbr.summary6,nrbr.summary7,nrbr.summary8,nrbr.summary9,nrbr.summary10) %>% group_by(Sample,AssignedPop) %>% summarise(Consistency=n()/10) %>% arrange(Sample,-Consistency) %>% 
+  #left_join(meta) %>% 
+  #filter(AssignedPop==Assignment) %>% 
+   pivot_wider(names_from = AssignedPop, values_from = c(Consistency)) %>% replace(is.na(.), 0) %>%
+  left_join(meta) %>% write.table("WIFL.NONREF_exclWTMT.thin_10_all.assigned_pop.REF_exclWTMT.consistent.wide.loco-pipe.txt",row.names=F,quote=F,sep="\t")
+```
+
+#compare assingment between two methods
+```{r}
+gatk<-read_delim("GATK2beagle/WGSassign_out/yewa.wint107.consec_chunk.newB_ref75.assigned_pop.wide_consistent.txt",delim="\t") %>% rename(SouthwestGATK=Southwest,CentralGATK=Central,PNWGATK=PNW,WBorealGATK=WBoreal,EastGATK=East)
+angsd<-read_delim("yewa.wint107.thin_10_all.assigned_pop.REF75_newB.wide_consistent.angsd.loco-pipe.txt",delim="\t") %>% rename(SouthwestANGSD=Southwest,CentralANGSD=Central,PNWANGSD=PNW,WBorealANGSD=WBoreal,EastANGSD=East)
+
+gatk %>% left_join(angsd)
+```
