@@ -21,11 +21,17 @@ Investigating local adaptation on the nonbreeding ground of 3 migratory species.
 
 2.Climate_distinctiveness_nonbreeding.R: Code to replicate the environmental distinctiveness analyses. Large rasters and shapefiles will need to be downloaded separately, however, urls to their location are provided.
 
-3a.MigConnectivity_AMRE.Rmd : Code and data to replicate the MigConnectivity calculation of NMC for American redstart.
+3a.AMRE_WGSassign.LOO_consistency.github.Rmd : Code and data to replicate the WGSAssign analyses to assign nonbreeding birds to distinct breeding units for American redstart.
 
-3b.MigConnectivity_SWTH.Rmd : Code and data to replicate the MigConnectivity calculation of NMC for Swainson's thrush.
+3b.SWTH_WGSassign.LOO_consistency.github.Rmd : Code and data to replicate the WGSAssign analyses to assign nonbreeding birds to distinct breeding units for Swainson's thrush.
 
-3c.MigConnectivity_WIFL.Rmd : Code and data to replicate the MigConnectivity calculation of NMC for Willow flycatcher.
+3c.WIFL_WGSassign.LOO_consistency.github.Rmd : Code and data to replicate the WGSAssign analyses to assign nonbreeding birds to distinct breeding units for Willow flycatcher.
+
+4a.MigConnectivity_AMRE.Rmd : Code and data to replicate the MigConnectivity calculation of NMC for American redstart.
+
+4b.MigConnectivity_SWTH.Rmd : Code and data to replicate the MigConnectivity calculation of NMC for Swainson's thrush.
+
+4c.MigConnectivity_WIFL.Rmd : Code and data to replicate the MigConnectivity calculation of NMC for Willow flycatcher.
 
 # Data
 The genomic data including allele frequencies for breeding and nonbreeding populations, breeding q-values, and sample/assignment summary information, can be found on dryad. doi:10.5061/dryad.jm63xsjm9
